@@ -1,20 +1,54 @@
 .main{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.main .content{
     text-align: center;
 }
 
-.main label {
-    display: block;
-    margin: 0.5rem 0rem;
-}
-
-.main.actionButtons{
-    display: flex;
+.main .badge {
+    background-color: #67d1a4;
+    padding: 0.25rem 1rem;
+    border-radius: 25px;
+    font-weight: bold;
 
 }
-
-.actionButtons button {
- 
-    margin: 0.5rem;
-    /* background-color:rgb(39, 141, 107) */
-
+.main .wordNumber{
+    color: #1f7552;
+    font-weight: bold;
+    font-size: 1.8rem;
 }
+.main img{
+    max-width: 150px;
+    max-height: 315px;
+}
+
+.badge:hover,
+  .badge:active {
+    background-color: #1f7552;
+  }
+  
+  .bump {
+    animation: bump 300ms ease-out;
+  }
+  
+  @keyframes bump {
+    0% {
+      transform: scale(1);
+    }
+    10% {
+      transform: scale(0.9);
+    }
+    30% {
+      transform: scale(1.1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
