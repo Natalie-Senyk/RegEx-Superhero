@@ -1,0 +1,20 @@
+.main{
+    text-align: center;
+}
+
+.main label {
+    display: block;
+    margin: 0.5rem 0rem;
+}
+
+.main.actionButtons{
+    display: flex;
+
+}
+
+.actionButtons button {
+ 
+    margin: 0.5rem;
+    /* background-color:rgb(39, 141, 107) */
+
+}
