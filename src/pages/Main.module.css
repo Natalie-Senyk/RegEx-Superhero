@@ -7,6 +7,10 @@
 .main .content{
     text-align: center;
 }
+.main .content .formStyle{
+  display: flex;
+  justify-content: center;
+}
 
 .main .badge {
     background-color: #67d1a4;
