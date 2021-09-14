@@ -5,19 +5,19 @@ import classes from "./Navigation.module.css"
 const Navigation: React.FC = () => {
   return (
     <header className={classes.header}>
-      <span>/r/e/g/e/x/ </span>
+      <div className={classes.logo}><NavLink to="/">/r/e/g/e/x/ </NavLink></div>
       <nav>
         <ul>
           <li>
-            <NavLink to="/" exact>
+            <NavLink activeClassName={classes.active} to="/" exact>
               Game
             </NavLink>
           </li>
           <li>
-            <NavLink to="/progress">Progress</NavLink>
+            <NavLink  activeClassName={classes.active} to="/progress">Progress</NavLink>
           </li>
           <li>
-            <NavLink to="/logout">Logout</NavLink>
+            <NavLink activeClassName={classes.active} to="/logout">Logout</NavLink>
           </li>
         </ul>
       </nav>

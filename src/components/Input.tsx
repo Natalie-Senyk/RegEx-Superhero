@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import CustomButton from "../UI/CustomButton"
 import { RegexContext } from "../store/regex-context"
-import './Input.css'
+import "./Input.css"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +19,7 @@ const Input: React.FC = () => {
   const [enteredInput, setEnteredInput] = useState<string>("")
   const [wrongInputMessage, setWrongInputMessage] = useState<boolean>(false)
   const regExContext = useContext(RegexContext)
-  const { currentWordToGuess } = regExContext
+  const { currentWord } = regExContext
   const classes = useStyles()
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,13 +32,14 @@ const Input: React.FC = () => {
     if (enteredInput.trim().length === 0) {
       return
     }
-    const result = currentWordToGuess.match(enteredInput)
+    const result = currentWord.match(enteredInput)
 
     function validateResult() {
-      if (result !== null && result[0] === currentWordToGuess) {
+      if (result !== null && result[0] === currentWord) {
         regExContext.updateGuessedWords()
-        result !== null && regExContext.updatedCurrentWord()
-        result !== null && regExContext.validate()
+        regExContext.updateWordIndex()
+        regExContext.updateCurrentWord()
+        regExContext.validate()
       } else {
         setWrongInputMessage(true)
       }
@@ -59,12 +60,13 @@ const Input: React.FC = () => {
       autoComplete="off"
       onSubmit={inputSubmitHandler}
     >
-       {/* <TextField error id="standard-error" label="Error" defaultValue="Hello World" /> */}
       <TextField
-      className="text-field"
-      error={wrongInputMessage}
+        className="text-field"
+        error={wrongInputMessage}
         id="filled-basic"
-        label={wrongInputMessage ? "Invalid expression" : "Enter your RegEx here" }
+        label={
+          wrongInputMessage ? "Invalid expression" : "Enter your RegEx here"
+        }
         variant="filled"
         onChange={inputHandler}
         value={enteredInput}
