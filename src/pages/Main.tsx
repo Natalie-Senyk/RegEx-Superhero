@@ -1,27 +1,41 @@
-import React, {useContext} from "react"
-import CustomButton from "../UI/CustomButton"
+import React, {useContext, useState, useEffect} from "react"
 import Input from "../components/Input"
 import classes from "./Main.module.css"
 import MainImage from '../assets/main.png'
 import { RegexContext } from "../store/regex-context"
 
 const Main: React.FC = () => {
+  const [btnIsHighlighted, setBtnIsHighlighted] = useState<boolean>(false)
     const regExContext = useContext(RegexContext)
-    const levelIndex = regExContext.currentLevel - 1
-    const currentWordToGuess = regExContext.levels[levelIndex].words[0]
-    console.log(currentWordToGuess)
+    const {currentWordToGuess} = regExContext
+    const {currentLevel} = regExContext
+    const {numberOfGuessedWords} = regExContext
+
+    useEffect(() => {
+      if (regExContext.currentLevel=== 1 && numberOfGuessedWords === 0) {
+        return
+      }
+      setBtnIsHighlighted(true)
+      const timer = setTimeout(() => {
+        setBtnIsHighlighted(false)
+      }, 300)
+      
+      return () => {
+        clearTimeout(timer)
+      }
+  
+    }, [currentLevel, numberOfGuessedWords])
+
   return (
     <div className={classes.main}>
       <div className={classes.content}>
         <h1>
-          Your current level: <span className={classes.badge}>{regExContext.currentLevel}</span>
+          Your current level: <span className={`${classes.badge} ${btnIsHighlighted ? classes.bump : ''} `}>{regExContext.currentLevel}</span>
         </h1>
-        <h2>Number of guessed words: <span className={classes.wordNumber}>{regExContext.numberOfGuessedWords}</span></h2>
+        <h2>Number of guessed words: <span className={`${classes.wordNumber} ${btnIsHighlighted ? classes.bump : ''} `}>{regExContext.numberOfGuessedWords}</span></h2>
         <p>Enter RegEx for "{currentWordToGuess}"</p>
-        <Input />
-        <div className={classes.actionButtons}>
-          <CustomButton name="skip" />
-          <CustomButton name="submit" />
+        <div className={classes.formStyle}>
+        <Input/>
         </div>
       </div>
       <img src={MainImage} alt="girl with cards" />

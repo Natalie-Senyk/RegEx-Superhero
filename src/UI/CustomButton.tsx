@@ -11,15 +11,18 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type ButtonProps = {
-  name: string
+  name: string;
+  
 }
 
 const CustomButton: React.FC<ButtonProps> = (props) => {
   const classes = useStyles()
 
+
   return (
     <Button
       variant="contained"
+      type={props.name === 'submit' ? "submit" : "button"}
       color="primary"
       className={classes.button}
       endIcon={
