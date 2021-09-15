@@ -1,57 +1,54 @@
 import React, { useState } from "react"
 import regExpData from "./utils"
 
-type Level = {
-  level: number
-  words: string[]
-}
+// type Level = {
+//   level: number
+//   words: string[]
+// }
 
 type RegexContextObj = {
-  levels: Level[]
   currentLevel: number
-  wordsToGuess: string[]
   currentWord: string
   numberOfGuessedWords: number
   updateGuessedWords: () => void
   updateWordIndex: () => void
   updateCurrentWord: () => void
   validateLevel: () => void
+  skipWord: () => void
 }
 
 export const RegexContext = React.createContext<RegexContextObj>({
-  levels: [],
   currentLevel: 1,
-  wordsToGuess: [],
   currentWord: "",
   numberOfGuessedWords: 0,
   updateGuessedWords: () => {},
   updateWordIndex: () => {},
   updateCurrentWord: () => {},
   validateLevel: () => {},
+  skipWord: () => {},
 })
 
 const RegexContextProvider: React.FC = (props) => {
-  const [regExpressions, setRegExpressions] = useState<Level[]>(regExpData)
-  const [curLevel, setCurLevel] = useState<number>(1)
+  const regExpressions = regExpData
   const [wordIndex, setWordIndex] = useState<number>(0)
-  const [wordsToGuess, setWordsToGuess] = useState<string[]>(
-    regExpressions[curLevel - 1].words
-  )
+  const [curLevel, setCurLevel] = useState<number>(1)
   const [currentWord, setCurrentWord] = useState<string>(
-    wordsToGuess[wordIndex]
+    regExpressions[wordIndex]
   )
   const [guessedWords, setGuessedWords] = useState<number>(0)
 
+  console.log(currentWord)
+  console.log(wordIndex)
+
   const contextValue: RegexContextObj = {
-    levels: regExpressions,
     currentLevel: curLevel,
-    wordsToGuess: wordsToGuess,
-    currentWord: wordsToGuess[wordIndex],
+    currentWord: currentWord,
     numberOfGuessedWords: guessedWords,
     updateGuessedWords: updateWords,
     updateWordIndex: updateWordIndex,
     updateCurrentWord: updateCurrentWord,
     validateLevel: validateLevel,
+    skipWord: skipWordHandler,
   }
 
   function updateWords() {
@@ -59,49 +56,54 @@ const RegexContextProvider: React.FC = (props) => {
   }
 
   function updateWordIndex() {
-    if (wordIndex < 2) {
-      setWordIndex((prev) => prev + 1)
-    } else {
-      setWordIndex(0)
-    }
+    wordIndex < 29 && setWordIndex((prev) => prev + 1)
+  }
+
+  function updateCurrentWord() {
+    setCurrentWord(regExpressions[wordIndex + 1])
+  }
+
+  function skipWordHandler() {
+    updateWordIndex()
+    setCurrentWord(regExpressions[wordIndex + 1])
   }
 
   function validateLevel() {
     if (guessedWords > 1) {
       setCurLevel(2)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 4) {
       setCurLevel(3)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 7) {
-      setCurLevel(4)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 10) {
       setCurLevel(5)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 13) {
       setCurLevel(6)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 16) {
       setCurLevel(7)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 19) {
       setCurLevel(8)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 22) {
       setCurLevel(9)
+      setCurrentWord(regExpressions[wordIndex])
     }
     if (guessedWords > 25) {
       setCurLevel(10)
+      setCurrentWord(regExpressions[wordIndex])
     }
-
-    setTimeout(() => {
-      updateCurrentWord()
-    })
-  }
-
-  function updateCurrentWord() {
-    setCurrentWord(wordsToGuess[wordIndex])
   }
 
   return (

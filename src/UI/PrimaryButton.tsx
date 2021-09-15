@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 type ButtonProps = {
   name: string
   customStyle?: boolean
+  onClick?: () => void
 }
 
 const PrimaryButton: React.FC<ButtonProps> = (props) => {
@@ -40,6 +41,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
       color="primary"
       className={!props.customStyle ? classes.button : classes.custom}
       endIcon={endIcon}
+      onClick={props.onClick}
     >
       {props.name}
     </Button>
