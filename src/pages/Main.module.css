@@ -15,6 +15,7 @@
 .main .badge {
   background-color: #67d1a4;
   padding: 0.25rem 1rem;
+  margin: 0px 10px;
   border-radius: 25px;
   font-weight: bold;
   display: inline-block;
@@ -28,7 +29,7 @@
 .main img {
   max-width: 150px;
   max-height: 315px;
-  animation: girl 1000ms forwards;
+  animation: girl 2000ms forwards;
 }
 
 .badge:hover,
