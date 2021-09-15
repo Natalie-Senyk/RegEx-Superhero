@@ -1,9 +1,10 @@
 import React, {useState} from "react"
-import { InputAdornment, TextField } from "@material-ui/core"
+import { Button, InputAdornment, TextField } from "@material-ui/core"
 import LogoutImage from "../assets/logout-image.svg"
 import classes from './Logout.module.css'
 import { AccountCircle } from "@material-ui/icons"
 import PasswordInput from "../UI/PasswordInput"
+import PrimaryButton from "../UI/PrimaryButton"
 
 const Logout: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState(false)
@@ -33,6 +34,8 @@ const Logout: React.FC = () => {
               }}
           />
           <PasswordInput />
+          <PrimaryButton customStyle={true} name="Sign In" />
+          <Button className={classes.buttonStyle} color="primary">Create new account</Button>
         </form>
       </div>
       <img src={LogoutImage} alt="logout" />

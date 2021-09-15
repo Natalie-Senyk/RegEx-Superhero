@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
-import CustomButton from "../UI/CustomButton"
+import PrimaryButton from "../UI/PrimaryButton"
 import { RegexContext } from "../store/regex-context"
 import "./Input.css"
 
@@ -34,19 +34,14 @@ const Input: React.FC = () => {
     }
     const result = currentWord.match(enteredInput)
 
-    function validateResult() {
-      if (result !== null && result[0] === currentWord) {
-        regExContext.updateGuessedWords()
-        regExContext.updateWordIndex()
-        regExContext.updateCurrentWord()
-        regExContext.validate()
-      } else {
-        setWrongInputMessage(true)
-      }
+    if (result !== null && result[0] === currentWord) {
+      regExContext.updateGuessedWords()
+      regExContext.updateWordIndex()
+      regExContext.validateLevel()
+      setEnteredInput("")
+    } else {
+      setWrongInputMessage(true)
     }
-    validateResult()
-    setEnteredInput("")
-    // then fetch post to save guessed word and update progress and level
   }
 
   const inputFocusHandler = () => {
@@ -74,8 +69,8 @@ const Input: React.FC = () => {
         onFocus={inputFocusHandler}
       />
       <div className={classes.root}>
-        <CustomButton name="skip" />
-        <CustomButton name="submit" />
+        <PrimaryButton name="skip" />
+        <PrimaryButton name="submit" />
       </div>
     </form>
   )

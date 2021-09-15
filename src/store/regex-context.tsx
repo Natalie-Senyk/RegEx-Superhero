@@ -15,7 +15,7 @@ type RegexContextObj = {
   updateGuessedWords: () => void
   updateWordIndex: () => void
   updateCurrentWord: () => void
-  validate: () => void
+  validateLevel: () => void
 }
 
 export const RegexContext = React.createContext<RegexContextObj>({
@@ -27,7 +27,7 @@ export const RegexContext = React.createContext<RegexContextObj>({
   updateGuessedWords: () => {},
   updateWordIndex: () => {},
   updateCurrentWord: () => {},
-  validate: () => {},
+  validateLevel: () => {},
 })
 
 const RegexContextProvider: React.FC = (props) => {
@@ -51,49 +51,57 @@ const RegexContextProvider: React.FC = (props) => {
     updateGuessedWords: updateWords,
     updateWordIndex: updateWordIndex,
     updateCurrentWord: updateCurrentWord,
-    validate: validateLevel,
+    validateLevel: validateLevel,
   }
 
   function updateWords() {
     setGuessedWords((prev) => prev + 1)
   }
 
-  function updateCurrentWord () {
-    setCurrentWord(wordsToGuess[wordIndex])
-  }
-
-  function updateWordIndex () {
-    setWordIndex(prev => prev + 1)
+  function updateWordIndex() {
+    if (wordIndex < 2) {
+      setWordIndex((prev) => prev + 1)
+    } else {
+      setWordIndex(0)
+    }
   }
 
   function validateLevel() {
-    if (guessedWords > 2) {
+    if (guessedWords > 1) {
       setCurLevel(2)
     }
-    if (guessedWords > 5) {
+    if (guessedWords > 4) {
       setCurLevel(3)
     }
-    if (guessedWords > 8) {
+    if (guessedWords > 7) {
       setCurLevel(4)
     }
-    if (guessedWords > 11) {
+    if (guessedWords > 10) {
       setCurLevel(5)
     }
-    if (guessedWords > 14) {
+    if (guessedWords > 13) {
       setCurLevel(6)
     }
-    if (guessedWords > 17) {
+    if (guessedWords > 16) {
       setCurLevel(7)
     }
-    if (guessedWords > 20) {
+    if (guessedWords > 19) {
       setCurLevel(8)
     }
-    if (guessedWords > 23) {
+    if (guessedWords > 22) {
       setCurLevel(9)
     }
-    if (guessedWords > 26) {
+    if (guessedWords > 25) {
       setCurLevel(10)
     }
+
+    setTimeout(() => {
+      updateCurrentWord()
+    })
+  }
+
+  function updateCurrentWord() {
+    setCurrentWord(wordsToGuess[wordIndex])
   }
 
   return (

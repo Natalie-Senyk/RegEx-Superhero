@@ -1,6 +1,7 @@
 .logout{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .logout img{
     max-width: 50%;
@@ -17,4 +18,13 @@
 }
 .content .superhero{
     font-weight: 700;
+}
+form .buttonStyle{
+    margin-left: 20px;
+}
+
+@media(max-width: 420px) {
+    .logout img{
+        display: none;
+    }   
 }
