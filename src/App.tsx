@@ -3,6 +3,7 @@ import { Route } from "react-router-dom"
 import Layout from "./UI/Layout"
 import Main from "./pages/Main"
 import RegexContextProvider from "./store/regex-context"
+import Logout from "./pages/Logout"
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
         <Route path="/" exact>
           <Main />
         </Route>
-        <Route></Route>
+        <Route path="/logout">
+          <Logout />
+        </Route>
         <Route></Route>
       </Layout>
     </RegexContextProvider>
