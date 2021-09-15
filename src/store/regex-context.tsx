@@ -37,9 +37,6 @@ const RegexContextProvider: React.FC = (props) => {
   )
   const [guessedWords, setGuessedWords] = useState<number>(0)
 
-  console.log(currentWord)
-  console.log(wordIndex)
-
   const contextValue: RegexContextObj = {
     currentLevel: curLevel,
     currentWord: currentWord,

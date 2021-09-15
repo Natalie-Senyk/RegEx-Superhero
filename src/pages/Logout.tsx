@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import { Button, InputAdornment, TextField } from "@material-ui/core"
 import LogoutImage from "../assets/logout-image.svg"
 import classes from './Logout.module.css'
@@ -7,7 +7,8 @@ import PasswordInput from "../UI/PasswordInput"
 import PrimaryButton from "../UI/PrimaryButton"
 
 const Logout: React.FC = () => {
-    const [errorMessage, setErrorMessage] = useState(false)
+    // const [errorMessage, setErrorMessage] = useState(false)
+    const errorMessage = false
   return (
     <div className={classes.logout}>
       <div className={classes.content}>
