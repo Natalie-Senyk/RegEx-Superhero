@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Input: React.FC = (props) => {
+const Input: React.FC = () => {
   const [enteredInput, setEnteredInput] = useState<string>("")
   const [showConfetti, setShowConfetti] = useState<boolean>(false)
   const [wrongInputMessage, setWrongInputMessage] = useState<boolean>(false)
@@ -66,11 +66,13 @@ const Input: React.FC = (props) => {
       noValidate
       autoComplete="off"
       onSubmit={inputSubmitHandler}
+      data-testid="form"
     >
       <TextField
         className="text-field"
         error={wrongInputMessage}
         id="filled-basic"
+        data-testid="input-field"
         label={
           wrongInputMessage ? "Invalid expression" : "Enter your RegEx here"
         }

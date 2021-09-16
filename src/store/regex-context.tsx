@@ -1,10 +1,6 @@
 import React, { useState } from "react"
 import regExpData from "./utils"
 
-// type Level = {
-//   level: number
-//   words: string[]
-// }
 
 type RegexContextObj = {
   currentLevel: number
