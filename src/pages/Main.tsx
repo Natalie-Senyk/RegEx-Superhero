@@ -41,7 +41,7 @@ const Main: React.FC = () => {
         </h1>
         <h2>
           Number of guessed words:&nbsp;
-          <span
+          <span data-testid="guessed-words"
             className={`${classes.wordNumber} ${
               btnIsHighlighted ? classes.bump : ""
             } `}
@@ -50,14 +50,14 @@ const Main: React.FC = () => {
           </span>
         </h2>
         <p className="animate__animated animate__pulse animate__delay-2s">
-          Enter RegEx for "{currentWord}"
+          Enter RegEx for <span data-testid="current-word">"{currentWord}"</span>
         </p>
 
-        <div className={classes.formStyle}>
-          <Input />
+        <div className={classes.formStyle} data-testid="input-block" >
+          <Input/>
         </div>
       </div>
-      <img src={MainImage} alt="girl with cards" />
+      <img data-testid="image" src={MainImage} alt="girl with cards" />
     </div>
   )
 }
