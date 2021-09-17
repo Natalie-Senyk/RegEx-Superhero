@@ -6,22 +6,30 @@ type RegexContextObj = {
   currentLevel: number
   currentWord: string
   numberOfGuessedWords: number
-  updateGuessedWords: () => void
+  updateGuessedWordsNumber: () => void
   updateWordIndex: () => void
   updateCurrentWord: () => void
   validateLevel: () => void
   skipWord: () => void
+  guessedWordsArray: string[]
+  guessedRegExArray: string []
+  updateGuessedWords: (word: string) => void
+  updateGuessedRegEx: (regEx: string) => void
 }
 
 export const RegexContext = React.createContext<RegexContextObj>({
   currentLevel: 1,
   currentWord: "",
   numberOfGuessedWords: 0,
-  updateGuessedWords: () => {},
+  updateGuessedWordsNumber: () => {},
   updateWordIndex: () => {},
   updateCurrentWord: () => {},
   validateLevel: () => {},
   skipWord: () => {},
+  guessedWordsArray: [],
+  guessedRegExArray: [],
+  updateGuessedWords: () => {},
+  updateGuessedRegEx: () => {}
 })
 
 const RegexContextProvider: React.FC = (props) => {
@@ -32,19 +40,25 @@ const RegexContextProvider: React.FC = (props) => {
     regExpressions[wordIndex]
   )
   const [guessedWords, setGuessedWords] = useState<number>(0)
+  const [guessedWordsArray, setGuessedWordsArray] = useState<string[]>([])
+  const [guessedRegExArray, setGuessedRegExArray] = useState<string[]>([])
 
   const contextValue: RegexContextObj = {
     currentLevel: curLevel,
     currentWord: currentWord,
     numberOfGuessedWords: guessedWords,
-    updateGuessedWords: updateWords,
+    updateGuessedWordsNumber: updateWordsNumber,
     updateWordIndex: updateWordIndex,
     updateCurrentWord: updateCurrentWord,
     validateLevel: validateLevel,
     skipWord: skipWordHandler,
+    guessedWordsArray: guessedWordsArray,
+    guessedRegExArray: guessedRegExArray,
+    updateGuessedWords: updateGuessedWords,
+    updateGuessedRegEx: updateGuessedRegEx
   }
 
-  function updateWords() {
+  function updateWordsNumber() {
     setGuessedWords((prev) => prev + 1)
   }
 
@@ -59,6 +73,14 @@ const RegexContextProvider: React.FC = (props) => {
   function skipWordHandler() {
     updateWordIndex()
     setCurrentWord(regExpressions[wordIndex + 1])
+  }
+
+  function updateGuessedWords(guessedWord: string) {
+    setGuessedWordsArray(prev => [...prev, guessedWord] )
+  }
+
+  function updateGuessedRegEx(regEx: string) {
+    setGuessedRegExArray(prev => [...prev, regEx] )
   }
 
   function validateLevel() {

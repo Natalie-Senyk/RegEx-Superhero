@@ -40,8 +40,13 @@ const Input: React.FC = () => {
     const result = currentWord.match(enteredInput)
 
     if (result !== null && result[0] === currentWord) {
+
+      regExContext.updateGuessedWords(currentWord)
+      regExContext.updateGuessedRegEx(enteredInput)
+      console.log(regExContext.guessedWordsArray)
+      console.log(regExContext.guessedRegExArray)
       regExContext.updateWordIndex()
-      regExContext.updateGuessedWords()
+      regExContext.updateGuessedWordsNumber()
       regExContext.updateCurrentWord()
       regExContext.validateLevel()
       setTimeout(() => setShowConfetti(true), 0)
@@ -51,6 +56,7 @@ const Input: React.FC = () => {
     }
     setEnteredInput("")
   }
+
 
   const inputFocusHandler = () => {
     setWrongInputMessage(false)
