@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useContext} from "react"
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import Icon from "@material-ui/core/Icon"
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom"
+import { RegexContext } from "../store/regex-context"
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -24,6 +25,8 @@ type ButtonProps = {
 
 const PrimaryButton: React.FC<ButtonProps> = (props) => {
   const classes = useStyles()
+  const regExContext = useContext(RegexContext)
+  const { numberOfGuessedWords } = regExContext
 
   const endIcon =
     props.name === "submit" ? (
@@ -42,6 +45,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
       className={!props.customStyle ? classes.button : classes.custom}
       endIcon={endIcon}
       onClick={props.onClick}
+      disabled={numberOfGuessedWords === 30}
     >
       {props.name}
     </Button>

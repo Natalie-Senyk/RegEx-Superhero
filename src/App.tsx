@@ -4,6 +4,7 @@ import Layout from "./UI/Layout"
 import Main from "./pages/Main"
 import RegexContextProvider from "./store/regex-context"
 import Logout from "./pages/Logout"
+import ProgressList from "./pages/ProgressList"
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
         <Route path="/logout">
           <Logout />
         </Route>
-        <Route></Route>
+        <Route path="/progress">
+          <ProgressList />
+        </Route>
       </Layout>
     </RegexContextProvider>
   )

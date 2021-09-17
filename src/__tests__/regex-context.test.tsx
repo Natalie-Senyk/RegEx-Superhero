@@ -2,7 +2,7 @@ import { RegexContext } from "../store/regex-context"
 import RegexContextProvider from "../store/regex-context"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import Main from "../pages/Main"
+
 
 
 describe("RegexContextProvider", () => {
@@ -14,7 +14,7 @@ describe("RegexContextProvider", () => {
           {(value) => (
             <>
               <span>Number of words: {value.numberOfGuessedWords}</span>
-              <button onClick={value.updateGuessedWords}>Submit</button>
+              <button onClick={value.updateGuessedWordsNumber}>Submit</button>
             </>
           )}
         </RegexContext.Consumer>
@@ -42,7 +42,7 @@ describe("RegexContextProvider", () => {
             <>
               <span data-testid="level">{value.currentLevel}</span>
               <span>Number of guessed words: {value.numberOfGuessedWords}</span>
-              <button onClick={value.updateGuessedWords}>Submit</button>
+              <button onClick={value.updateGuessedWordsNumber}>Submit</button>
               <button onClick={value.validateLevel}>Validate</button>
             </>
           )}

@@ -3,12 +3,6 @@ import Main from "../pages/Main"
 import "@testing-library/jest-dom"
 
 
-const mockRegExData = {
-  numberOfGuessedWords: 0,
-  level: 1,
-  updateGuessedWords: (num: number) => (num += 1),
-  updateLevel: (curLevel: number) => (curLevel += 1),
-}
 
 describe("Main component", () => {
   beforeEach(() => {
