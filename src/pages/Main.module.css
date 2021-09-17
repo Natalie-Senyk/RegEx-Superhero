@@ -1,6 +1,6 @@
 .main {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: flex-start;
 }
 
@@ -10,6 +10,13 @@
 .main .content .formStyle {
   display: flex;
   justify-content: center;
+}
+.content .wordToGuess{
+  color: #303F9F;
+  font-weight: bold;
+  display: inline-block;
+  border-bottom: 2px solid #303F9F;
+
 }
 
 .main .badge {
@@ -26,10 +33,14 @@
   font-size: 1.8rem;
   display: inline-block;
 }
-.main img {
+.main .girl {
   max-width: 150px;
-  max-height: 315px;
+  max-height: 355px;
   animation: girl 2000ms forwards;
+}
+.main .leaf{
+  max-width: 150px;
+  max-height: 255px;
 }
 
 .badge:hover,

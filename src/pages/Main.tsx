@@ -4,6 +4,7 @@ import classes from "./Main.module.css"
 import MainImage from "../assets/main.png"
 import { RegexContext } from "../store/regex-context"
 import "animate.css"
+import LeafImg from '../assets/wave-image.png'
 
 const Main: React.FC = () => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState<boolean>(false)
@@ -50,14 +51,15 @@ const Main: React.FC = () => {
           </span>
         </h2>
         <p className="animate__animated animate__pulse animate__delay-2s">
-          Enter RegEx for <span data-testid="current-word">"{currentWord}"</span>
+          Enter RegEx for <span className={classes.wordToGuess} data-testid="current-word">"{currentWord}"</span>
         </p>
 
         <div className={classes.formStyle} data-testid="input-block" >
           <Input/>
         </div>
       </div>
-      <img data-testid="image" src={MainImage} alt="girl with cards" />
+      <img className={`${classes.leaf} animate__animated animate__bounce animate__delay-1s` } src={LeafImg} alt="wave" />
+      <img className={classes.girl} data-testid="image" src={MainImage} alt="girl with cards" />
     </div>
   )
 }

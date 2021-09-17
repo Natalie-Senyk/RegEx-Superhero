@@ -3,17 +3,19 @@ import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import PrimaryButton from "../UI/PrimaryButton"
 import { RegexContext } from "../store/regex-context"
-import "./Input.css"
 import ConfettiForWinner from "../UI/Confetti"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "25ch",
+      width: "35ch",
       display: "flex",
     },
   },
+  inputField: {
+    marginBottom: '20px'
+  }
 }))
 
 const Input: React.FC = () => {
@@ -42,7 +44,8 @@ const Input: React.FC = () => {
       regExContext.updateGuessedWords()
       regExContext.updateCurrentWord()
       regExContext.validateLevel()
-      setShowConfetti(true)
+      setTimeout(() => setShowConfetti(true), 0)
+      setTimeout(() => setShowConfetti(false), 5000)
     } else {
       setWrongInputMessage(true)
     }
@@ -56,6 +59,7 @@ const Input: React.FC = () => {
 
   const skipWordHandler = () => {
     regExContext.skipWord()
+    setWrongInputMessage(false)
 
   }
 
@@ -69,7 +73,7 @@ const Input: React.FC = () => {
       data-testid="form"
     >
       <TextField
-        className="text-field"
+        className={`text-field ${classes.inputField}`}
         error={wrongInputMessage}
         id="filled-basic"
         data-testid="input-field"
