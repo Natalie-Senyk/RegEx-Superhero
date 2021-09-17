@@ -3,6 +3,13 @@ import Main from "../pages/Main"
 import "@testing-library/jest-dom"
 
 
+const mockRegExData = {
+  numberOfGuessedWords: 0,
+  level: 1,
+  updateGuessedWords: (num: number) => (num += 1),
+  updateLevel: (curLevel: number) => (curLevel += 1),
+}
+
 describe("Main component", () => {
   beforeEach(() => {
     render(<Main />)
@@ -29,8 +36,5 @@ describe("Main component", () => {
     const currentWord = screen.queryByTestId("current-word")
     expect(currentWord).not.toBeUndefined()
   })
-//   it("should update Number of Guessed Words if the input is correct", () => {
-//     const numberOfGuessedWords = screen.queryByTestId("guessed-words")
-//     expect(numberOfGuessedWords).toEqual(0)
-//   })
+
 })
