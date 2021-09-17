@@ -43,8 +43,10 @@ const Input: React.FC = () => {
 
       regExContext.updateGuessedWords(currentWord)
       regExContext.updateGuessedRegEx(enteredInput)
-      console.log(regExContext.guessedWordsArray)
-      console.log(regExContext.guessedRegExArray)
+      console.log(enteredInput)
+      console.log(currentWord)
+      // console.log(regExContext.guessedWordsArray)
+      // console.log(regExContext.guessedRegExArray)
       regExContext.updateWordIndex()
       regExContext.updateGuessedWordsNumber()
       regExContext.updateCurrentWord()

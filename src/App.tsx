@@ -4,7 +4,7 @@ import Layout from "./UI/Layout"
 import Main from "./pages/Main"
 import RegexContextProvider from "./store/regex-context"
 import Logout from "./pages/Logout"
-import ProgressList from "./pages/Progress"
+import ProgressList from "./pages/ProgressList"
 
 function App() {
   return (
