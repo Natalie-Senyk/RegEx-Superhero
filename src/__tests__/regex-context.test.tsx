@@ -2,11 +2,9 @@ import { RegexContext } from "../store/regex-context"
 import RegexContextProvider from "../store/regex-context"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-
-
+import Main from "../pages/Main"
 
 describe("RegexContextProvider", () => {
-
   it("updates number of guessed words", () => {
     const { getByText } = render(
       <RegexContextProvider>
@@ -67,4 +65,5 @@ describe("RegexContextProvider", () => {
     expect(queryByText("Number of guessed words: 3")).toBeTruthy()
     expect(level.textContent).toBe("2")
   })
+  
 })

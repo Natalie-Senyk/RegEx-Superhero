@@ -30,5 +30,11 @@ describe("Main component", () => {
     const currentWord = screen.queryByTestId("current-word")
     expect(currentWord).not.toBeUndefined()
   })
+  it('should correspond to snapshot', () => {
+    const {asFragment} = render(<Main />)
+    expect(asFragment(<Main />)).toMatchSnapshot()
+  
+  
+  })
 
 })

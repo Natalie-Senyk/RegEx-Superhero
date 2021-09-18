@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main component should correspond to snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="main"
+  >
+    <div
+      class="content"
+    >
+      <h1>
+        Your current level:
+        <span
+          class="badge "
+        >
+          1
+        </span>
+      </h1>
+      <h2>
+        Number of guessed words: 
+        <span
+          class="wordNumber  "
+          data-testid="guessed-words"
+        >
+          0
+        </span>
+      </h2>
+      <p
+        class="animate__animated animate__pulse animate__delay-2s"
+      >
+        Enter RegEx for 
+        <span
+          class="wordToGuess"
+          data-testid="current-word"
+        >
+          ""
+        </span>
+      </p>
+      <div
+        class="formStyle"
+        data-testid="input-block"
+      >
+        <form
+          autocomplete="off"
+          class="makeStyles-root-21"
+          data-testid="form"
+          novalidate=""
+        >
+          <div
+            class="MuiFormControl-root MuiTextField-root text-field makeStyles-inputField-22"
+            data-testid="input-field"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-filled"
+              data-shrink="false"
+              for="filled-basic"
+              id="filled-basic-label"
+            >
+              Enter your RegEx here
+            </label>
+            <div
+              class="MuiInputBase-root MuiFilledInput-root MuiFilledInput-underline MuiInputBase-formControl"
+            >
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiFilledInput-input"
+                id="filled-basic"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            class="makeStyles-root-21"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-23 MuiButton-containedPrimary"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                skip
+                <span
+                  class="MuiButton-endIcon MuiButton-iconSizeMedium"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M15.5 5H11l5 7-5 7h4.5l5-7z"
+                    />
+                    <path
+                      d="M8.5 5H4l5 7-5 7h4.5l5-7z"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-23 MuiButton-containedPrimary"
+              tabindex="0"
+              type="submit"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                submit
+                <span
+                  class="MuiButton-endIcon MuiButton-iconSizeMedium"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="material-icons MuiIcon-root"
+                  >
+                    send
+                  </span>
+                </span>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <img
+      alt="wave"
+      class="leaf animate__animated animate__bounce animate__delay-1s"
+      src="wave-image.png"
+    />
+    <img
+      alt="girl with cards"
+      class="girl"
+      data-testid="image"
+      src="main.png"
+    />
+  </div>
+</DocumentFragment>
+`;
