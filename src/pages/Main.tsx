@@ -58,7 +58,7 @@ const Main: React.FC = () => {
           <Input/>
         </div>
       </div>
-      <img className={`${classes.leaf} animate__animated animate__bounce animate__delay-1s` } src={LeafImg} alt="wave" />
+      <img className={`${classes.leaf} animate__animated animate__bounce animate__delay-1s` } src={LeafImg} alt="leaf" />
       <img className={classes.girl} data-testid="image" src={MainImage} alt="girl with cards" />
     </div>
   )

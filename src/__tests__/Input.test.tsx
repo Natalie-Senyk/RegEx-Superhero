@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import "@testing-library/jest-dom"
 import Input from "../components/Input"
+import React from "react"
 
 describe("Input component", () => {
   beforeEach(() => {
@@ -36,4 +37,40 @@ describe("Input component", () => {
 
     expect(inputElement).toBeEnabled()
   })
+  it("should have label", () => {
+    const labelEl = screen.getByLabelText(/Enter your regex here/i)
+    expect(labelEl).toBeInTheDocument()
+  })
+  it("should have the input field not required", () => {
+    const inputEl = screen.getByLabelText(/Enter your regex here/i)
+    expect(inputEl).not.toBeRequired()
+  })
+  it("should have id attribute", () => {
+    const inputEl = screen.getByLabelText(/Enter your regex here/i)
+    expect(inputEl).toHaveAttribute('id')
+  })
+  it("shows Invalid expression message if input is incorrect", async() => {
+    const enteredInput = screen.getByLabelText(/Enter your regex here/i)
+    await fireEvent.change(enteredInput, {target: {value: /\w{20}/}})
+    fireEvent.click(screen.getByText("submit"))
+    expect(screen.findByLabelText(/Invalid expression/i)).not.toBeNull()
+
+    
+  })
+  it("doesn`t show Invalid expression message if user submits empty input, just the usual label", async() => {
+
+    const enteredInput = screen.getByLabelText(/Enter your regex here/i)
+    userEvent.type(enteredInput, '')
+    fireEvent.click(screen.getByText("submit"))
+    expect(screen.queryByLabelText(/Invalid expression/i)).toBeNull()
+
+    
+  })
+  it('input focus', () => {
+    const input = screen.getByLabelText(/Enter your regex here/i)
+    expect(input).not.toHaveFocus()
+    input.focus()
+    expect(input).toHaveFocus()
+  })
 })
+

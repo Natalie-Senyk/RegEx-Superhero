@@ -6,10 +6,10 @@ const Navigation: React.FC = () => {
   return (
     <header className={classes.header}>
       <div className={classes.logo}><NavLink to="/">/r/e/g/e/x/ </NavLink></div>
-      <nav>
+      <nav data-testid="navbar">
         <ul>
           <li>
-            <NavLink activeClassName={classes.active} to="/" exact>
+            <NavLink data-testid="home" activeClassName={classes.active} to="/" exact>
               Game
             </NavLink>
           </li>
