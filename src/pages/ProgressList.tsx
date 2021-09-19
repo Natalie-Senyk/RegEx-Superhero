@@ -19,7 +19,7 @@ const ProgressList = () => {
       ) : (
         <div className={classes.noProgress}>
           <h3>
-            No guessed words yet. <a href="/">Go back </a>to home page
+            No guessed words yet. <Link to="/">Go back </Link>to home page
           </h3>
           <img src={WaveImg} alt="" />
         </div>

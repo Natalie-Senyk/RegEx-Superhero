@@ -42,12 +42,12 @@ exports[`Main component should correspond to snapshot 1`] = `
       >
         <form
           autocomplete="off"
-          class="makeStyles-root-21"
+          class="makeStyles-root-25"
           data-testid="form"
           novalidate=""
         >
           <div
-            class="MuiFormControl-root MuiTextField-root text-field makeStyles-inputField-22"
+            class="MuiFormControl-root MuiTextField-root text-field makeStyles-inputField-26"
             data-testid="input-field"
           >
             <label
@@ -71,10 +71,10 @@ exports[`Main component should correspond to snapshot 1`] = `
             </div>
           </div>
           <div
-            class="makeStyles-root-21"
+            class="makeStyles-root-25"
           >
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-23 MuiButton-containedPrimary"
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-27 MuiButton-containedPrimary"
               tabindex="0"
               type="button"
             >
@@ -105,7 +105,7 @@ exports[`Main component should correspond to snapshot 1`] = `
               />
             </button>
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-23 MuiButton-containedPrimary"
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-button-27 MuiButton-containedPrimary"
               tabindex="0"
               type="submit"
             >
@@ -133,7 +133,7 @@ exports[`Main component should correspond to snapshot 1`] = `
       </div>
     </div>
     <img
-      alt="wave"
+      alt="leaf"
       class="leaf animate__animated animate__bounce animate__delay-1s"
       src="wave-image.png"
     />

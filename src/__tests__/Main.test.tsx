@@ -1,16 +1,19 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 import Main from "../pages/Main"
 import "@testing-library/jest-dom"
-
-
+import userEvent from "@testing-library/user-event"
 
 describe("Main component", () => {
   beforeEach(() => {
     render(<Main />)
   })
-  it("should display image on the main page", () => {
+  it("should display girl image on the main page", () => {
     const image = screen.getByTestId("image")
     expect(image).toBeTruthy()
+  })
+  it("should display leaf imagee", () => {
+    const image = screen.getByAltText("leaf")
+    expect(image).toBeInTheDocument()
   })
   it("should display main header", () => {
     const header = screen.getByText("Your current level", { exact: false })
@@ -30,11 +33,8 @@ describe("Main component", () => {
     const currentWord = screen.queryByTestId("current-word")
     expect(currentWord).not.toBeUndefined()
   })
-  it('should correspond to snapshot', () => {
-    const {asFragment} = render(<Main />)
+  it("should correspond to snapshot", () => {
+    const { asFragment } = render(<Main />)
     expect(asFragment(<Main />)).toMatchSnapshot()
-  
-  
   })
-
 })
