@@ -8,6 +8,7 @@
     max-height: 80%;
 }
 
+
 .content h1{
     font-size: 1.75rem;
     font-weight: 500;
@@ -19,8 +20,9 @@
 .content .superhero{
     font-weight: 700;
 }
+
 form .buttonStyle{
-    margin-left: 20px;
+    margin-left: 13%;
 }
 
 @media(max-width: 420px) {

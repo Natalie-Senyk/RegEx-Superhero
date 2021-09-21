@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import PrimaryButton from "../UI/PrimaryButton"
@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputField: {
-    marginBottom: '20px'
-  }
+    marginBottom: "20px",
+  },
 }))
 
 const Input: React.FC = () => {
@@ -24,12 +24,21 @@ const Input: React.FC = () => {
   const [wrongInputMessage, setWrongInputMessage] = useState<boolean>(false)
   const regExContext = useContext(RegexContext)
   const { currentWord } = regExContext
- 
+  const { wordIndex } = regExContext
+  const { updateCurrentWord } = regExContext
+  const { startTimer } = regExContext
+  const {numberOfGuessedWords} = regExContext
+
   const classes = useStyles()
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredInput(e.target.value)
   }
+
+  useEffect(() => {
+    updateCurrentWord()
+
+  }, [wordIndex, updateCurrentWord])
 
   const inputSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault()
@@ -40,33 +49,29 @@ const Input: React.FC = () => {
     const result = currentWord.match(enteredInput)
 
     if (result !== null && result[0] === currentWord) {
-
       regExContext.updateGuessedWords(currentWord)
       regExContext.updateGuessedRegEx(enteredInput)
       regExContext.updateWordIndex()
       regExContext.updateGuessedWordsNumber()
-      regExContext.updateCurrentWord()
       regExContext.validateLevel()
       setTimeout(() => setShowConfetti(true), 0)
-      setTimeout(() => setShowConfetti(false), 5000)
+      setTimeout(() => setShowConfetti(false), 4000)
     } else {
       setWrongInputMessage(true)
     }
     setEnteredInput("")
   }
 
-
   const inputFocusHandler = () => {
     setWrongInputMessage(false)
     setShowConfetti(false)
+    numberOfGuessedWords === 0 && startTimer()
   }
 
   const skipWordHandler = () => {
     regExContext.skipWord()
     setWrongInputMessage(false)
-
   }
-
 
   return (
     <form
@@ -90,7 +95,7 @@ const Input: React.FC = () => {
         helperText={wrongInputMessage && "Try again, you can do this!"}
         onFocus={inputFocusHandler}
       />
-        {showConfetti && <ConfettiForWinner />}
+      {showConfetti && <ConfettiForWinner />}
       <div className={classes.root}>
         <PrimaryButton name="skip" onClick={skipWordHandler} />
         <PrimaryButton name="submit" />
