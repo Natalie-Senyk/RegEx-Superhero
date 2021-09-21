@@ -6,10 +6,7 @@ type RegexContextObj = {
   wordIndex: number
   currentWord: string
   numberOfGuessedWords: number
-  updateGuessedWordsNumber: () => void
-  updateWordIndex: () => void
   updateCurrentWord: () => void
-  validateLevel: () => void
   skipWord: () => void
   guessedWordsArray: string[]
   guessedRegExArray: string[]
@@ -19,6 +16,7 @@ type RegexContextObj = {
   endTime: number
   startTimer: () => void
   endTimer: () => void
+  validateResult: (input: string) => void
 }
 
 export const RegexContext = React.createContext<RegexContextObj>({
@@ -26,10 +24,7 @@ export const RegexContext = React.createContext<RegexContextObj>({
   wordIndex: 0,
   currentWord: "",
   numberOfGuessedWords: 0,
-  updateGuessedWordsNumber: () => {},
-  updateWordIndex: () => {},
   updateCurrentWord: () => {},
-  validateLevel: () => {},
   skipWord: () => {},
   guessedWordsArray: [],
   guessedRegExArray: [],
@@ -38,7 +33,8 @@ export const RegexContext = React.createContext<RegexContextObj>({
   startTime: 0,
   endTime: 0,
   startTimer: () => {},
-  endTimer: () => {}
+  endTimer: () => {},
+  validateResult: () => {}
 })
 
 const RegexContextProvider: React.FC<any> = (props) => {
@@ -106,6 +102,14 @@ const RegexContextProvider: React.FC<any> = (props) => {
     }
   }
 
+  function validateResult(enteredInput: string) {
+  updateGuessedWords(currentWord)
+  updateGuessedRegEx(enteredInput)
+  updateWordIndex()
+  updateWordsNumber()
+  validateLevel()
+  }
+
   const startTimer = () => {
     setStartTime(Date.now())
   }
@@ -119,10 +123,7 @@ const RegexContextProvider: React.FC<any> = (props) => {
     wordIndex: wordIndex,
     currentWord: currentWord,
     numberOfGuessedWords: guessedWords,
-    updateGuessedWordsNumber: updateWordsNumber,
-    updateWordIndex: updateWordIndex,
     updateCurrentWord: updateCurrentWord,
-    validateLevel: validateLevel,
     skipWord: skipWordHandler,
     guessedWordsArray: guessedWordsArray,
     guessedRegExArray: guessedRegExArray,
@@ -131,7 +132,8 @@ const RegexContextProvider: React.FC<any> = (props) => {
     startTime: startTime,
     endTime: endTime,
     startTimer: startTimer,
-    endTimer: endTimer
+    endTimer: endTimer,
+    validateResult: validateResult
   }
 
   return (

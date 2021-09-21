@@ -15,10 +15,6 @@ const LevelBadge: React.FC<TimeProps> = (props) => {
     const {numberOfGuessedWords} = regExContext
     let convertedTimeResult = millisecondsToMinutes(props.time)
 
-    // if (convertedTimeResult > 59){
-    //     convertedTimeResult = millisecondsToMinutes(props.time) 
-    // }
-
     let level;
 
     if (numberOfGuessedWords < 15) {

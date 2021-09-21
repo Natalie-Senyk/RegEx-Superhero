@@ -20,11 +20,9 @@ const Progress = () => {
 
   useEffect(() => {
     pathname === "/progress" && endTimer()
-
     endTime > startTime && setTimeResult((endTime - startTime))
   }, [endTimer, pathname, startTime])
  
-
 
 
   return (

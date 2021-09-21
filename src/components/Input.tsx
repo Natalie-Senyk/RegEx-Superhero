@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField"
 import PrimaryButton from "../UI/PrimaryButton"
 import { RegexContext } from "../store/regex-context"
 import ConfettiForWinner from "../UI/Confetti"
+import { setTimeEvent } from "../setTimeoutFunc"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,7 @@ const Input: React.FC = () => {
 
   }, [wordIndex, updateCurrentWord])
 
+
   const inputSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault()
 
@@ -49,18 +51,15 @@ const Input: React.FC = () => {
     const result = currentWord.match(enteredInput)
 
     if (result !== null && result[0] === currentWord) {
-      regExContext.updateGuessedWords(currentWord)
-      regExContext.updateGuessedRegEx(enteredInput)
-      regExContext.updateWordIndex()
-      regExContext.updateGuessedWordsNumber()
-      regExContext.validateLevel()
-      setTimeout(() => setShowConfetti(true), 0)
-      setTimeout(() => setShowConfetti(false), 4000)
+      regExContext.validateResult(enteredInput)
+      setTimeEvent(setShowConfetti)
+   
     } else {
       setWrongInputMessage(true)
     }
     setEnteredInput("")
   }
+
 
   const inputFocusHandler = () => {
     setWrongInputMessage(false)
