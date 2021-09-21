@@ -12,8 +12,9 @@ const useStyles = makeStyles((theme) => ({
   },
   custom: {
     margin: theme.spacing(2),
-    width: "23ch",
+    width: "20ch",
     display: "flex",
+    marginLeft: '15%'
   },
 }))
 
@@ -36,6 +37,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
     ) : (
       <MeetingRoomIcon>Sign In</MeetingRoomIcon>
     )
+
 
   return (
     <Button

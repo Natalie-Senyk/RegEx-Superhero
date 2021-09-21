@@ -1,6 +1,6 @@
 .main {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: flex-start;
 }
 
@@ -32,6 +32,7 @@
   font-weight: bold;
   font-size: 1.8rem;
   display: inline-block;
+  margin-right: 0.5rem;
 }
 .main .girl {
   max-width: 150px;
@@ -85,3 +86,45 @@
     transform: translateX(0);
   }
 }
+
+@media (max-width: 950px) {
+  .main .girl {
+    max-width: 30%;
+ 
+  }
+  .main .leaf{
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 890px) {
+  .main .leaf{
+    display: none;
+  }
+}
+
+@media (max-width: 765px) {
+  .main .girl{
+    display: none;
+  }
+  .main {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .main{
+    margin-top: 0;
+  }
+  
+  .main h1{
+    font-size: 1.5rem;
+  }
+  .main h2{
+    font-size: 1rem;
+  }
+}
+
+

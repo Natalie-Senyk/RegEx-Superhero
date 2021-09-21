@@ -4,7 +4,7 @@ import Layout from "./UI/Layout"
 import Main from "./pages/Main"
 import RegexContextProvider from "./store/regex-context"
 import Logout from "./pages/Logout"
-import ProgressList from "./pages/ProgressList"
+import Progress from "./pages/Progress"
 import Error from "./pages/Error"
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
           <Logout />
         </Route>
         <Route path="/progress">
-          <ProgressList />
+          <Progress />
         </Route>
         <Route component={Error}/>
         </Switch>

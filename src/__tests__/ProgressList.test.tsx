@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
-import ProgressList from "../pages/ProgressList"
+import ProgressList from "../pages/Progress"
 import { BrowserRouter } from "react-router-dom"
 
 

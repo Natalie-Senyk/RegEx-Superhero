@@ -13,6 +13,7 @@ const Main: React.FC = () => {
   const { currentLevel } = regExContext
   const { numberOfGuessedWords } = regExContext
 
+
   useEffect(() => {
     if (currentLevel === 1 && numberOfGuessedWords === 0) {
       return
@@ -26,6 +27,8 @@ const Main: React.FC = () => {
       clearTimeout(timer)
     }
   }, [currentLevel, numberOfGuessedWords])
+
+
 
   return (
     <div className={classes.main}>

@@ -5,6 +5,12 @@
     text-align: center;
     font-family: 'Gluten', cursive;
 }
+.time{
+    font-family: 'Gluten';
+    font-size: 1.5rem;
+    text-align: center;
+    color: rgb(139, 123, 32);
+}
 
 .badge{
     text-align: center;
