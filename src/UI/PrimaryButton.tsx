@@ -1,4 +1,4 @@
-import React, {useContext} from "react"
+import React, { useContext } from "react"
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import Icon from "@material-ui/core/Icon"
@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   custom: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(7),
+    marginTop: '40px',
+    marginBottom: '5px',
     width: "20ch",
-    display: "flex",
-    marginLeft: '15%'
   },
 }))
 
@@ -38,11 +38,10 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
       <MeetingRoomIcon>Sign In</MeetingRoomIcon>
     )
 
-
   return (
     <Button
       variant="contained"
-      type={props.name === "submit" ? "submit" : "button"}
+      type={props.name === "skip" ? "button" : 'submit'}
       color="primary"
       className={!props.customStyle ? classes.button : classes.custom}
       endIcon={endIcon}
