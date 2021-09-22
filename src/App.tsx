@@ -1,31 +1,34 @@
-import React from "react"
-import { Route, Switch } from "react-router-dom"
+import { useContext } from "react"
+import { Route, Switch, Redirect } from "react-router-dom"
 import Layout from "./UI/Layout"
 import Main from "./pages/Main"
-import RegexContextProvider from "./store/regex-context"
 import Logout from "./pages/Logout"
 import Progress from "./pages/Progress"
-import Error from "./pages/Error"
+
+import { AuthContext } from "./store/auth-context"
 
 function App() {
+  const authCtx = useContext(AuthContext)
+
   return (
-    <RegexContextProvider>
-      <Layout>
-        <Switch>
+    <Layout>
+      <Switch>
         <Route path="/" exact>
           <Main />
         </Route>
-        <Route path="/logout">
+        <Route path="/login">
           <Logout />
         </Route>
         <Route path="/progress">
-          <Progress />
+          {authCtx.token !== null && <Progress />}
+          {authCtx.token === null && <Redirect to="/login" />}
         </Route>
-        <Route component={Error}/>
-        </Switch>
-    
-      </Layout>
-    </RegexContextProvider>
+
+        <Route path="*">
+          <Redirect to="/" />
+        </Route>
+      </Switch>
+    </Layout>
   )
 }
 

@@ -1,0 +1,55 @@
+.logout{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logout img{
+    max-width: 50%;
+    max-height: 80%;
+}
+
+
+.content h1{
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+.content p{
+    color: #b3b3b3;
+    font-weight: 300;
+}
+.content .superhero{
+    font-weight: 700;
+}
+
+form .buttonsStyle{
+    display: flex;
+    flex-direction: column;
+  
+}
+
+form .newAccount{
+    color: #303F9F;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 500;
+    width: 240px;
+    padding: 10px;
+    text-align: center;
+    margin-left: 5%;
+}
+form .newAccount:hover{
+    background-color:rgb(221, 219, 219);
+    border-radius: 5px;
+}
+
+form .loading{
+font-size: 1.3rem;
+text-align: center;
+margin-top: 0;
+}
+
+@media(max-width: 420px) {
+    .logout img{
+        display: none;
+    }   
+}

@@ -37,7 +37,7 @@ export const RegexContext = React.createContext<RegexContextObj>({
   validateResult: () => {}
 })
 
-const RegexContextProvider: React.FC<any> = (props) => {
+const RegexContextProvider: React.FC = (props) => {
   const regExpressions = regExpData
   const [wordIndex, setWordIndex] = useState<number>(0)
   const [curLevel, setCurLevel] = useState<number>(1)

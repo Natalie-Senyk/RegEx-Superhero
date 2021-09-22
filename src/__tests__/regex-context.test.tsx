@@ -1,5 +1,5 @@
 import { RegexContext } from "../store/regex-context"
-import { render, screen } from "@testing-library/react"
+import { render, screen, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import "@testing-library/jest-dom/extend-expect"
 import Main from "../pages/Main"
@@ -17,7 +17,7 @@ describe("Context default values render correctly", () => {
 
   })
 
-  const mockFn = jest.fn()
+
 
   type contextProps = {
     currentLevel: number
@@ -40,7 +40,7 @@ describe("Context default values render correctly", () => {
   const contextItems: contextProps = {
   currentLevel: 1,
   wordIndex: 0,
-  currentWord: 'abc',
+  currentWord: 'abc123',
   numberOfGuessedWords: 0,
   updateCurrentWord: () => {},
   skipWord: () => {},
@@ -50,9 +50,9 @@ describe("Context default values render correctly", () => {
   updateGuessedRegEx: () => {},
   startTime: 0,
   endTime: 0,
-  startTimer: () => {},
+  startTimer: jest.fn(),
   endTimer: () => {},
-  validateResult: () => {}
+  validateResult:  jest.fn()
   }
 
   it("shows default Level 1 initially", () => {
@@ -66,10 +66,19 @@ describe("Context default values render correctly", () => {
       "Number of guessed words: 0"
     )
   })
-  // it("responds to Submit button click with function", () => {
+  it("starts the timer when the user click on input the first time", () => {
 
-  //   const button = screen.getByRole('button', {name: 'submit'})
-  //   userEvent.click(button)
-  //   expect(mockFn).toBeCalled()
-  // })
+    const input = screen.getByLabelText('Enter your RegEx here', {exact: false})
+    fireEvent.focus(input)
+
+    expect(contextItems.startTimer).toBeCalled()
+
+  })
+  it("doesn`t validate the result when the input is empty and the Submit button is clicked by user", () => {
+
+    const button = screen.getByRole('button', {name: 'submit'})
+    fireEvent.click(button)
+    expect(contextItems.validateResult).not.toBeCalled()
+
+  })
 })

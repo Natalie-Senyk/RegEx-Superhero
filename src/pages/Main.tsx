@@ -29,7 +29,6 @@ const Main: React.FC = () => {
   }, [currentLevel, numberOfGuessedWords])
 
 
-
   return (
     <div className={classes.main}>
       <div className={classes.content}>
