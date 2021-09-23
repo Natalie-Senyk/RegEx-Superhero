@@ -1,0 +1,31 @@
+.popover {
+  width: 250px;
+  max-width: 90%;
+  max-height: 200px;
+  padding: 0 10px;
+  box-shadow: 2px 5px 8px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 50px;
+  right: 30px;
+  border-radius: 10px;
+  background-color: #87d8bd;
+  animation: popover 2000ms backwards;
+}
+
+.popover p {
+  color: #1a3d2f;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+@keyframes popover {
+  0% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

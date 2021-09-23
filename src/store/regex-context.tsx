@@ -4,13 +4,13 @@ import regExpData from "./utils"
 type RegexContextObj = {
   currentLevel: number
   wordIndex: number
-  currentWord: string
+  currentWord: string[]
   numberOfGuessedWords: number
   updateCurrentWord: () => void
   skipWord: () => void
   guessedWordsArray: string[]
   guessedRegExArray: string[]
-  updateGuessedWords: (word: string) => void
+  updateGuessedWords: (word: string[]) => void
   updateGuessedRegEx: (regEx: string) => void
   startTime: number
   endTime: number
@@ -22,7 +22,7 @@ type RegexContextObj = {
 export const RegexContext = React.createContext<RegexContextObj>({
   currentLevel: 1,
   wordIndex: 0,
-  currentWord: "",
+  currentWord: [],
   numberOfGuessedWords: 0,
   updateCurrentWord: () => {},
   skipWord: () => {},
@@ -41,7 +41,7 @@ const RegexContextProvider: React.FC = (props) => {
   const regExpressions = regExpData
   const [wordIndex, setWordIndex] = useState<number>(0)
   const [curLevel, setCurLevel] = useState<number>(1)
-  const [currentWord, setCurrentWord] = useState<string>(regExpressions[0])
+  const [currentWord, setCurrentWord] = useState<string[]>(regExpressions[0])
   const [guessedWords, setGuessedWords] = useState<number>(0)
   const [guessedWordsArray, setGuessedWordsArray] = useState<string[]>([])
   const [guessedRegExArray, setGuessedRegExArray] = useState<string[]>([])
@@ -65,8 +65,8 @@ const RegexContextProvider: React.FC = (props) => {
     setCurrentWord(regExpressions[wordIndex + 1])
   }
 
-  function updateGuessedWords(guessedWord: string) {
-    setGuessedWordsArray((prev) => [...prev, guessedWord])
+  function updateGuessedWords(guessedWord: string[]) {
+    setGuessedWordsArray((prev) => [...prev, ...guessedWord])
   }
 
   function updateGuessedRegEx(regEx: string) {

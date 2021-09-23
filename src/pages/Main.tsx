@@ -53,9 +53,9 @@ const Main: React.FC = () => {
           </span>
         </h2>
         <p className="animate__animated animate__pulse animate__delay-2s">
-          Enter RegEx for <span className={classes.wordToGuess} data-testid="current-word">"{currentWord}"</span>
+          Enter RegEx that matches all the words down below:
         </p>
-
+        {currentWord.map(word =><span key={word} className={classes.wordToGuess} data-testid="current-word">{word}</span> )}
         <div className={classes.formStyle} data-testid="input-block" >
           <Input/>
         </div>

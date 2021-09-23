@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import classes from "./Navigation.module.css"
 import { AuthContext } from "../../store/auth-context"
+import PopOver from "../../UI/PopOver"
 
 const Navigation: React.FC = () => {
   const authCtx = useContext(AuthContext)
@@ -11,7 +12,7 @@ const Navigation: React.FC = () => {
   const logoutHandler = () => {
     authCtx.logout()
   }
-  
+
   return (
     <header className={classes.header}>
       <div className={classes.logo}>
@@ -47,6 +48,7 @@ const Navigation: React.FC = () => {
             >
               {token !== null ? "Logout" : "Log In"}
             </NavLink>
+            {token === null && <PopOver />}
           </li>
         </ul>
       </nav>

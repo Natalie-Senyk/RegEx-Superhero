@@ -16,6 +16,11 @@
   font-weight: bold;
   display: inline-block;
   border-bottom: 2px solid #303F9F;
+  margin-bottom: 1rem;
+  margin-left: 0.9rem;
+  background-color:#d7d8e0;
+  border-radius: 3px;
+  padding: 0.3rem 0.5rem;
 
 }
 
