@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton"
 import Visibility from "@material-ui/icons/Visibility"
 import VisibilityOff from "@material-ui/icons/VisibilityOff"
 import { AuthContext } from "../store/auth-context"
+// import {RouteComponentProps} from 'react-router-dom'
 
 const useStyles = makeStyles(() => ({
   logoutField: {
@@ -85,6 +86,7 @@ const AuthForm: React.FC = () => {
             value={enteredEmail}
             onChange={emailChangeHandler}
             error={errorEmailMessage}
+            data-testid="username"
             label={
               errorEmailMessage ? "Email address is not valid" : "Username"
             }
@@ -104,6 +106,7 @@ const AuthForm: React.FC = () => {
             type={showPassword ? "text" : "password"}
             value={enteredPassword}
             onChange={passwordChangeHandler}
+            data-testid="password"
             error={errorPasswordMessage}
             label={errorPasswordMessage ? "Password is too short" : "Password"}
             helperText={
@@ -128,7 +131,7 @@ const AuthForm: React.FC = () => {
               customStyle={true}
               name={isLogin ? "Login" : "Sign up"}
             />
-            <p className={classes.newAccount} onClick={switchAuthModeHandler}>
+            <p data-testid="paragraph" className={classes.newAccount} onClick={switchAuthModeHandler}>
               {isLogin ? "Create new account" : "Login with existing account"}
             </p>
           </div>
