@@ -7,6 +7,7 @@
   color: #303f9f;
   border-radius: 15px;
   text-align: center;
+  position: relative;
 }
 
 .card:hover {

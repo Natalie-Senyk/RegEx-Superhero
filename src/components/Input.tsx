@@ -48,9 +48,14 @@ const Input: React.FC = () => {
     if (enteredInput.trim().length === 0) {
       return
     }
-    const result = currentWord.match(enteredInput)
 
-    if (result !== null && result[0] === currentWord) {
+    let result: string[] = [];
+    
+    if (currentWord[0].match(enteredInput) && currentWord[1].match(enteredInput) && currentWord[2].match(enteredInput)) {
+      result.push(currentWord[0], currentWord[1], currentWord[2])  
+    }
+
+    if (result.length) {
       regExContext.validateResult(enteredInput)
       setTimeEvent(setShowConfetti)
    

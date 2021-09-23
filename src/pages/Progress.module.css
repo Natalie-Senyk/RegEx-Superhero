@@ -1,6 +1,6 @@
 .progress{
     display: grid;
-    row-gap: 15px;
+    row-gap: 25px;
     column-gap: 8px;
     grid-template-columns: repeat(3, auto);
 }
