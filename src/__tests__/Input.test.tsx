@@ -49,14 +49,13 @@ describe("Input component", () => {
     const inputEl = screen.getByLabelText(/Enter your regex here/i)
     expect(inputEl).toHaveAttribute('id')
   })
-  it("shows Invalid expression message if input is incorrect", async() => {
-    const enteredInput = screen.getByLabelText(/Enter your regex here/i)
-    await fireEvent.change(enteredInput, {target: {value: /\w{20}/}})
-    fireEvent.click(screen.getByText("submit"))
-    expect(screen.findByLabelText(/Invalid expression/i)).not.toBeNull()
+  // it("shows Invalid expression message if input is incorrect", async() => {
+  //   const enteredInput = screen.getByLabelText(/Enter your regex here/i)
+  //   await fireEvent.change(enteredInput, {target: {value: /\w{20}/}})
+  //   fireEvent.click(screen.getByText("submit"))
+  //   expect(screen.findByLabelText(/Invalid expression/i)).not.toBeNull()
 
-    
-  })
+  // })
   it("doesn`t show Invalid expression message if user submits empty input, just the usual label", async() => {
 
     const enteredInput = screen.getByLabelText(/Enter your regex here/i)

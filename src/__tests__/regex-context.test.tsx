@@ -22,13 +22,13 @@ describe("Context default values render correctly", () => {
   type contextProps = {
     currentLevel: number
     wordIndex: number
-    currentWord: string
+    currentWord: string[]
     numberOfGuessedWords: number
     updateCurrentWord: () => void
     skipWord: () => void
     guessedWordsArray: string[]
     guessedRegExArray: string[]
-    updateGuessedWords: (word: string) => void
+    updateGuessedWords: (word: string[]) => void
     updateGuessedRegEx: (regEx: string) => void
     startTime: number
     endTime: number
@@ -40,7 +40,7 @@ describe("Context default values render correctly", () => {
   const contextItems: contextProps = {
   currentLevel: 1,
   wordIndex: 0,
-  currentWord: 'abc123',
+  currentWord: [],
   numberOfGuessedWords: 0,
   updateCurrentWord: () => {},
   skipWord: () => {},

@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react"
+import { validateLevel } from "../functions/validateLevelFunc"
 import regExpData from "./utils"
 
 type RegexContextObj = {
@@ -73,41 +74,13 @@ const RegexContextProvider: React.FC = (props) => {
     setGuessedRegExArray((prev) => [...prev, regEx])
   }
 
-  function validateLevel() {
-    if (guessedWords > 1) {
-      setCurLevel(2)
-    }
-    if (guessedWords > 4) {
-      setCurLevel(3)
-    }
-    if (guessedWords > 7) {
-    }
-    if (guessedWords > 10) {
-      setCurLevel(5)
-    }
-    if (guessedWords > 13) {
-      setCurLevel(6)
-    }
-    if (guessedWords > 16) {
-      setCurLevel(7)
-    }
-    if (guessedWords > 19) {
-      setCurLevel(8)
-    }
-    if (guessedWords > 22) {
-      setCurLevel(9)
-    }
-    if (guessedWords > 25) {
-      setCurLevel(10)
-    }
-  }
 
   function validateResult(enteredInput: string) {
   updateGuessedWords(currentWord)
   updateGuessedRegEx(enteredInput)
   updateWordIndex()
   updateWordsNumber()
-  validateLevel()
+  validateLevel(guessedWords, setCurLevel)
   }
 
   const startTimer = () => {

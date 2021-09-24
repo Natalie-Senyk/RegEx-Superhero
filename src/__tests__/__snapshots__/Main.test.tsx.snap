@@ -28,13 +28,7 @@ exports[`Main component should correspond to snapshot 1`] = `
       <p
         class="animate__animated animate__pulse animate__delay-2s"
       >
-        Enter RegEx for 
-        <span
-          class="wordToGuess"
-          data-testid="current-word"
-        >
-          ""
-        </span>
+        Enter RegEx that matches all the words down below:
       </p>
       <div
         class="formStyle"

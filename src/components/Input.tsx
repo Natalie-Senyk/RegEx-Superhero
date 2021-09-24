@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField"
 import PrimaryButton from "../UI/PrimaryButton"
 import { RegexContext } from "../store/regex-context"
 import ConfettiForWinner from "../UI/Confetti"
-import { setTimeEvent } from "../setTimeoutFunc"
+import { setTimeEvent } from "../functions/setTimeoutFunc"
 
 const useStyles = makeStyles((theme) => ({
   root: {

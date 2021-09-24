@@ -73,7 +73,7 @@ const AuthForm: React.FC = () => {
     <div className={classes.logout}>
       <div className={classes.content}>
         <h1>
-          {isLogin ? "Login" : "Sign Up"} to RegEx{" "}
+          {isLogin ? "Login" : "Sign Up"} to RegEx
           <span className={classes.superhero}>Superhero</span>
         </h1>
         <p>
