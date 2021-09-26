@@ -58,6 +58,10 @@
   animation: bump 300ms ease-out;
 }
 
+.highlight{
+  background-color: yellow;
+}
+
 @keyframes bump {
   0% {
     transform: scale(1);

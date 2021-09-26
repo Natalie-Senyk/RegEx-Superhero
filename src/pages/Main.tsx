@@ -4,15 +4,17 @@ import classes from "./Main.module.css"
 import MainImage from "../assets/main.png"
 import { RegexContext } from "../store/regex-context"
 import "animate.css"
-import LeafImg from '../assets/wave-image.png'
+import LeafImg from "../assets/wave-image.png"
+import Highlighter from "react-highlight-words"
 
 const Main: React.FC = () => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState<boolean>(false)
+  const [searchHighlightedInput, setsearchHighlightedInput] =
+    useState<RegExp>(/^/)
   const regExContext = useContext(RegexContext)
   const { currentWord } = regExContext
   const { currentLevel } = regExContext
   const { numberOfGuessedWords } = regExContext
-
 
   useEffect(() => {
     if (currentLevel === 1 && numberOfGuessedWords === 0) {
@@ -28,6 +30,10 @@ const Main: React.FC = () => {
     }
   }, [currentLevel, numberOfGuessedWords])
 
+  const userInputHighlightHandler = (userInput: string) => {
+    setsearchHighlightedInput(RegExp(userInput))
+    console.log(searchHighlightedInput)
+  }
 
   return (
     <div className={classes.main}>
@@ -44,7 +50,8 @@ const Main: React.FC = () => {
         </h1>
         <h2>
           Number of guessed words:&nbsp;
-          <span data-testid="guessed-words"
+          <span
+            data-testid="guessed-words"
             className={`${classes.wordNumber} ${
               btnIsHighlighted ? classes.bump : ""
             } `}
@@ -55,15 +62,43 @@ const Main: React.FC = () => {
         <p className="animate__animated animate__pulse animate__delay-2s">
           Enter RegEx that matches all the words down below:
         </p>
-        {currentWord.map(word =><span key={word} className={classes.wordToGuess} data-testid="current-word">{word}</span> )}
-        <div className={classes.formStyle} data-testid="input-block" >
-          <Input/>
+        {currentWord.map((word) => (
+          <Highlighter
+            highlightClassName="YourHighlightClass"
+            key={word}
+            className={classes.wordToGuess}
+            data-testid="current-word"
+            searchWords={Array(searchHighlightedInput!)}
+            // autoEscape={true}
+            textToHighlight={word}
+          />
+        ))}
+        <div className={classes.formStyle} data-testid="input-block">
+          <Input userInputHighlight={userInputHighlightHandler} />
         </div>
       </div>
-      <img className={`${classes.leaf} animate__animated animate__bounce animate__delay-1s` } src={LeafImg} alt="leaf" />
-      <img className={classes.girl} data-testid="image" src={MainImage} alt="girl with cards" />
+      <img
+        className={`${classes.leaf} animate__animated animate__bounce animate__delay-1s`}
+        src={LeafImg}
+        alt="leaf"
+      />
+      <img
+        className={classes.girl}
+        data-testid="image"
+        src={MainImage}
+        alt="girl with cards"
+      />
     </div>
   )
 }
 
 export default Main
+
+/* <span
+            key={word}
+            className={`${classes.wordToGuess} ${highlightClass ? classes.highlight : ''}`}
+            style={{backgroundColor: highlightClass ? 'yellow' : '#d7d8e0'}}
+            data-testid="current-word"
+          >
+            {word}{" "}
+          </span> */
