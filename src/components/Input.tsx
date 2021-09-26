@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Input: React.FC = () => {
+type userInputProps = {
+  userInputHighlight: (userInput: string) => void
+}
+
+const Input: React.FC<userInputProps> = (props) => {
   const [enteredInput, setEnteredInput] = useState<string>("")
   const [showConfetti, setShowConfetti] = useState<boolean>(false)
   const [wrongInputMessage, setWrongInputMessage] = useState<boolean>(false)
@@ -28,19 +32,18 @@ const Input: React.FC = () => {
   const { wordIndex } = regExContext
   const { updateCurrentWord } = regExContext
   const { startTimer } = regExContext
-  const {numberOfGuessedWords} = regExContext
+  const { numberOfGuessedWords } = regExContext
 
   const classes = useStyles()
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredInput(e.target.value)
+    props.userInputHighlight(e.target.value)
   }
 
   useEffect(() => {
     updateCurrentWord()
-
   }, [wordIndex, updateCurrentWord])
-
 
   const inputSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault()
@@ -49,22 +52,24 @@ const Input: React.FC = () => {
       return
     }
 
-    let result: string[] = [];
-    
-    if (currentWord[0].match(enteredInput) && currentWord[1].match(enteredInput) && currentWord[2].match(enteredInput)) {
-      result.push(currentWord[0], currentWord[1], currentWord[2])  
+    let result: string[] = []
+
+    if (
+      currentWord[0].match(enteredInput) &&
+      currentWord[1].match(enteredInput) &&
+      currentWord[2].match(enteredInput)
+    ) {
+      result.push(currentWord[0], currentWord[1], currentWord[2])
     }
 
     if (result.length) {
       regExContext.validateResult(enteredInput)
       setTimeEvent(setShowConfetti)
-   
     } else {
       setWrongInputMessage(true)
     }
     setEnteredInput("")
   }
-
 
   const inputFocusHandler = () => {
     setWrongInputMessage(false)
@@ -75,6 +80,7 @@ const Input: React.FC = () => {
   const skipWordHandler = () => {
     regExContext.skipWord()
     setWrongInputMessage(false)
+    setShowConfetti(false)
   }
 
   return (
