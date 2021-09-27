@@ -10,7 +10,7 @@ import Highlighter from "react-highlight-words"
 const Main: React.FC = () => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState<boolean>(false)
   const [searchHighlightedInput, setsearchHighlightedInput] =
-    useState<RegExp>(/^/)
+    useState<string[]>([])
   const regExContext = useContext(RegexContext)
   const { currentWord } = regExContext
   const { currentLevel } = regExContext
@@ -31,8 +31,7 @@ const Main: React.FC = () => {
   }, [currentLevel, numberOfGuessedWords])
 
   const userInputHighlightHandler = (userInput: string) => {
-    setsearchHighlightedInput(RegExp(userInput))
-    console.log(searchHighlightedInput)
+    setsearchHighlightedInput([userInput])
   }
 
   return (
@@ -68,8 +67,8 @@ const Main: React.FC = () => {
             key={word}
             className={classes.wordToGuess}
             data-testid="current-word"
-            searchWords={Array(searchHighlightedInput!)}
-            // autoEscape={true}
+            searchWords={searchHighlightedInput!}
+            autoEscape={true}
             textToHighlight={word}
           />
         ))}
