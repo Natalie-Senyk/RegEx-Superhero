@@ -78,7 +78,7 @@ const AuthContextProvider: React.FC = (props) => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        email: enteredEmail,
+        email: enteredEmail.toLowerCase(),
         password: enteredPassword,
         returnSecureToken: true,
       }),
