@@ -10,7 +10,6 @@ import IconButton from "@material-ui/core/IconButton"
 import Visibility from "@material-ui/icons/Visibility"
 import VisibilityOff from "@material-ui/icons/VisibilityOff"
 import { AuthContext } from "../store/auth-context"
-// import {RouteComponentProps} from 'react-router-dom'
 
 const useStyles = makeStyles(() => ({
   logoutField: {
@@ -25,46 +24,42 @@ const AuthForm: React.FC = () => {
     useState<boolean>(false)
   const styles = useStyles()
   const authCtx = useContext(AuthContext)
-  const { enteredEmail } = authCtx
-  const { enteredPassword } = authCtx
-  const { enterEmail } = authCtx
-  const { enterPassword } = authCtx
-  const { isLogin } = authCtx
-  const { handleIsLogin } = authCtx
-  const { fetchData } = authCtx
-  const { isLoading } = authCtx
+  const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading} = authCtx
   const history = useHistory()
+
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleMouseDownPassword = (event: React.MouseEvent) => {
-    event.preventDefault()
+  const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
   }
 
   const switchAuthModeHandler = () => {
     handleIsLogin()
   }
-  const passwordChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    enterPassword(e.target.value)
+  const passwordChangeHandler = ({target}: React.ChangeEvent<HTMLInputElement>) => {
+    enterPassword(target.value)
   }
 
-  const emailChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    enterEmail(e.target.value)
+  const emailChangeHandler = ({target}: React.ChangeEvent<HTMLInputElement>) => {
+    enterEmail(target.value)
   }
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if (!enteredEmail.includes("@")) {
+
+    if (!/@\w+\./.test(enteredEmail)){
       setErrorEmailMessage(true)
-      return
+      return false
     }
 
     if (enteredPassword.trim().length < 8) {
       setErrorPasswordMessage(true)
-      return
+      return false
     }
     fetchData(setErrorEmailMessage, setErrorPasswordMessage)
     history.replace('/')
