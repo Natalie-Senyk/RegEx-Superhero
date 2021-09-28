@@ -10,11 +10,15 @@ import LevelBadge from "../components/LevelBadge"
 const Progress = () => {
   const [timeResult, setTimeResult] = useState<number>(0)
   const regExContext = useContext(RegexContext)
-  const {guessedWordsArray, startTime, endTime, endTimer} = regExContext
+  const {guessedWordsArray, startTime, endTime, endTimer, fetchUserProgress, numberOfGuessedWords} = regExContext
 
 
   const location = useLocation()
   const {pathname} = location
+
+  useEffect(() => {
+    numberOfGuessedWords > 1 && fetchUserProgress()
+  }, [fetchUserProgress])
 
   useEffect(() => {
     pathname === "/progress" && endTimer()

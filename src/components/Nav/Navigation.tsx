@@ -3,14 +3,18 @@ import { NavLink } from "react-router-dom"
 import classes from "./Navigation.module.css"
 import { AuthContext } from "../../store/auth-context"
 import PopOver from "../../UI/PopOver"
+import { RegexContext } from "../../store/regex-context"
 
 const Navigation: React.FC = () => {
   const authCtx = useContext(AuthContext)
-
+  const regExContext = useContext(RegexContext)
   const { token } = authCtx
+
 
   const logoutHandler = () => {
     authCtx.logout()
+    regExContext.resetUserData()
+
   }
 
   return (

@@ -12,8 +12,11 @@ const Main: React.FC = () => {
   const [searchHighlightedInput, setsearchHighlightedInput] =
     useState<string[]>([])
   const regExContext = useContext(RegexContext)
-  const { currentWord, currentLevel, numberOfGuessedWords} = regExContext
+  const { currentWord, currentLevel, numberOfGuessedWords, fetchUserData} = regExContext
 
+  useEffect(() => {
+   fetchUserData()
+  }, [fetchUserData])
 
   useEffect(() => {
     if (currentLevel === 1 && numberOfGuessedWords === 0) {

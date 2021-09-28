@@ -18,6 +18,9 @@ type RegexContextObj = {
   startTimer: () => void
   endTimer: () => void
   validateResult: (input: string) => void
+  fetchUserData: () => void
+  fetchUserProgress: () => void
+  resetUserData: () => void
 }
 
 export const RegexContext = React.createContext<RegexContextObj>({
@@ -35,7 +38,10 @@ export const RegexContext = React.createContext<RegexContextObj>({
   endTime: 0,
   startTimer: () => {},
   endTimer: () => {},
-  validateResult: () => {}
+  validateResult: () => {},
+  fetchUserData: () => {},
+  fetchUserProgress: () => {},
+  resetUserData: () => {}
 })
 
 const RegexContextProvider: React.FC = (props) => {
@@ -49,6 +55,82 @@ const RegexContextProvider: React.FC = (props) => {
   const [startTime, setStartTime] = useState<number>(0)
   const [endTime, setEndTime] = useState<number>(0)
 
+  const fetchUserData = useCallback(async () => {
+    const response = await fetch(
+      "https://regex-superhero-default-rtdb.firebaseio.com/userData.json"
+    )
+
+    if (!response.ok) {
+      throw new Error("Something went wrong")
+    }
+
+    const data = await response.json()
+    setCurLevel(data.currentLevel)
+    setGuessedWords(data.numberOfGuessedWords)
+    setWordIndex(data.wordCurrentIndex)
+  }, [])
+
+  const updateUserData = () => {
+    fetch("https://regex-superhero-default-rtdb.firebaseio.com/userData.json", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        currentLevel: curLevel,
+        numberOfGuessedWords: guessedWords,
+        currentWordIndex: wordIndex,
+      }),
+    })
+  }
+
+  const fetchUserProgress = useCallback( async () => {
+    const response = await fetch("https://regex-superhero-default-rtdb.firebaseio.com/progress.json")
+    if (!response.ok) {
+      throw new Error("Something went wrong")
+    }
+    const data = await response.json()
+    setGuessedWordsArray(data.guessedWordsArray)
+
+  },[])
+
+  const updateUserProgress = () => {
+    fetch("https://regex-superhero-default-rtdb.firebaseio.com/progress.json", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        guessedWordsArray
+      }),
+    })
+  }
+
+  const resetUserData = async () => {
+    await fetch("https://regex-superhero-default-rtdb.firebaseio.com/userData.json", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        currentLevel: 1,
+        numberOfGuessedWords: 0,
+        currentWordIndex: 0,
+      }),
+    })
+    await fetch("https://regex-superhero-default-rtdb.firebaseio.com/progress.json", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        guessedWordsArray: ''
+      }),
+    })
+    setStartTime(0)
+    setEndTime(0)
+  }
+
   function updateWordsNumber() {
     setGuessedWords((prev) => prev + 1)
   }
@@ -57,9 +139,9 @@ const RegexContextProvider: React.FC = (props) => {
     wordIndex < 29 && setWordIndex((prev) => prev + 1)
   }
 
-  function updateCurrentWord() {
+  const updateCurrentWord = useCallback(() => {
     setCurrentWord(regExpressions[wordIndex])
-  }
+  }, [regExpressions, wordIndex])
 
   function skipWordHandler() {
     updateWordIndex()
@@ -74,13 +156,15 @@ const RegexContextProvider: React.FC = (props) => {
     setGuessedRegExArray((prev) => [...prev, regEx])
   }
 
-
   function validateResult(enteredInput: string) {
-  updateGuessedWords(currentWord)
-  updateGuessedRegEx(enteredInput)
-  updateWordIndex()
-  updateWordsNumber()
-  validateLevel(guessedWords, setCurLevel)
+    updateGuessedWords(currentWord)
+    updateGuessedRegEx(enteredInput)
+    updateWordIndex()
+    updateCurrentWord()
+    updateWordsNumber()
+    validateLevel(guessedWords, setCurLevel)
+    updateUserData()
+    updateUserProgress()
   }
 
   const startTimer = () => {
@@ -106,7 +190,10 @@ const RegexContextProvider: React.FC = (props) => {
     endTime: endTime,
     startTimer: startTimer,
     endTimer: endTimer,
-    validateResult: validateResult
+    validateResult: validateResult,
+    fetchUserData: fetchUserData,
+    fetchUserProgress: fetchUserProgress,
+    resetUserData: resetUserData
   }
 
   return (
