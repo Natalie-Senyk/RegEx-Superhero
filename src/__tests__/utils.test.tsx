@@ -3,10 +3,6 @@ import regExpData from "../store/utils"
 
 
 describe("Regex array", () => {
-  it("should check regEx length (30 expressions)", () => {
-    const regExpressions = regExpData
-    expect(regExpressions.length).toBe(30)
-  })
   it("should check one of regEx expressions", () => {
     const regExpressions = regExpData
     expect(regExpressions).toContainEqual(["ReactJS", 'reactTS', 'REACTRD'])

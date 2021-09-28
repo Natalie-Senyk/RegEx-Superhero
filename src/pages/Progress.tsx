@@ -10,10 +10,7 @@ import LevelBadge from "../components/LevelBadge"
 const Progress = () => {
   const [timeResult, setTimeResult] = useState<number>(0)
   const regExContext = useContext(RegexContext)
-  const { guessedWordsArray } = regExContext
-  const {startTime} = regExContext
-  const {endTime} = regExContext
-  const {endTimer} = regExContext
+  const {guessedWordsArray, startTime, endTime, endTimer} = regExContext
 
   const location = useLocation()
   const {pathname} = location

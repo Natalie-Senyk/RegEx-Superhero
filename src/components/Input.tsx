@@ -28,11 +28,14 @@ const Input: React.FC<userInputProps> = (props) => {
   const [showConfetti, setShowConfetti] = useState<boolean>(false)
   const [wrongInputMessage, setWrongInputMessage] = useState<boolean>(false)
   const regExContext = useContext(RegexContext)
-  const { currentWord } = regExContext
-  const { wordIndex } = regExContext
-  const { updateCurrentWord } = regExContext
-  const { startTimer } = regExContext
-  const { numberOfGuessedWords } = regExContext
+  const {
+    currentWord,
+    wordIndex,
+    updateCurrentWord,
+    startTimer,
+    numberOfGuessedWords,
+  } = regExContext
+  const [word1, word2, word3] = currentWord
 
   const classes = useStyles()
 
@@ -54,12 +57,8 @@ const Input: React.FC<userInputProps> = (props) => {
 
     let result: string[] = []
 
-    if (
-      currentWord[0].match(enteredInput) &&
-      currentWord[1].match(enteredInput) &&
-      currentWord[2].match(enteredInput)
-    ) {
-      result.push(currentWord[0], currentWord[1], currentWord[2])
+    if ([word1, word2, word3].every(word => word.match(enteredInput)![0] === word )) {
+      result.push(word1, word2, word3)
     }
 
     if (result.length) {
