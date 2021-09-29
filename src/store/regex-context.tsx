@@ -11,6 +11,7 @@ type RegexContextObj = {
   skipWord: () => void
   guessedWordsArray: string[]
   guessedRegExArray: string[]
+  guessedTime: string[]
   updateGuessedWords: (word: string[]) => void
   updateGuessedRegEx: (regEx: string) => void
   startTime: number
@@ -32,6 +33,7 @@ export const RegexContext = React.createContext<RegexContextObj>({
   skipWord: () => {},
   guessedWordsArray: [],
   guessedRegExArray: [],
+  guessedTime: [],
   updateGuessedWords: () => {},
   updateGuessedRegEx: () => {},
   startTime: 0,
@@ -52,6 +54,7 @@ const RegexContextProvider: React.FC = (props) => {
   const [guessedWords, setGuessedWords] = useState<number>(0)
   const [guessedWordsArray, setGuessedWordsArray] = useState<string[]>([])
   const [guessedRegExArray, setGuessedRegExArray] = useState<string[]>([])
+  const [guessedTime, setGuessedTime] = useState<string[]>([])
   const [startTime, setStartTime] = useState<number>(0)
   const [endTime, setEndTime] = useState<number>(0)
 
@@ -65,9 +68,10 @@ const RegexContextProvider: React.FC = (props) => {
     }
 
     const data = await response.json()
+
+    setWordIndex(data.currentWordIndex)
     setCurLevel(data.currentLevel)
     setGuessedWords(data.numberOfGuessedWords)
-    setWordIndex(data.wordCurrentIndex)
   }, [])
 
   const updateUserData = () => {
@@ -78,8 +82,8 @@ const RegexContextProvider: React.FC = (props) => {
       },
       body: JSON.stringify({
         currentLevel: curLevel,
-        numberOfGuessedWords: guessedWords,
-        currentWordIndex: wordIndex,
+        numberOfGuessedWords: guessedWords + 1,
+        currentWordIndex: wordIndex + 1,
       }),
     })
   }
@@ -88,20 +92,35 @@ const RegexContextProvider: React.FC = (props) => {
     const response = await fetch("https://regex-superhero-default-rtdb.firebaseio.com/progress.json")
     if (!response.ok) {
       throw new Error("Something went wrong")
+
     }
     const data = await response.json()
-    setGuessedWordsArray(data.guessedWordsArray)
+    if (data === null) {
+      return
+    }
+    for (let key in data) {
+      return {
+        guessedWords: data[key].guessedWords,
+        guessedRegEx: data[key].guessedRegEx,
+        guessedTime: data[key].guessedTime
+      }
+    }
+    setGuessedWordsArray(data.guessedWords)
+    setGuessedRegExArray(data.guessedRegEx)
+    setGuessedTime(data.guessedTime)
 
   },[])
 
   const updateUserProgress = () => {
     fetch("https://regex-superhero-default-rtdb.firebaseio.com/progress.json", {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        guessedWordsArray
+        guessedWords: guessedWordsArray,
+        guessedRegEx: guessedRegExArray,
+        guessedTime: guessedTime
       }),
     })
   }
@@ -115,17 +134,15 @@ const RegexContextProvider: React.FC = (props) => {
       body: JSON.stringify({
         currentLevel: 1,
         numberOfGuessedWords: 0,
-        currentWordIndex: 0,
+        currentWordIndex: 0
+
       }),
     })
     await fetch("https://regex-superhero-default-rtdb.firebaseio.com/progress.json", {
-      method: "PUT",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        guessedWordsArray: ''
-      }),
     })
     setStartTime(0)
     setEndTime(0)
@@ -156,9 +173,15 @@ const RegexContextProvider: React.FC = (props) => {
     setGuessedRegExArray((prev) => [...prev, regEx])
   }
 
+  function updateGuessedTime() {
+    setGuessedTime((prev) => [...prev, new Date().toLocaleString()])
+  }
+
   function validateResult(enteredInput: string) {
     updateGuessedWords(currentWord)
     updateGuessedRegEx(enteredInput)
+ 
+    updateGuessedTime()
     updateWordIndex()
     updateCurrentWord()
     updateWordsNumber()
@@ -167,9 +190,9 @@ const RegexContextProvider: React.FC = (props) => {
     updateUserProgress()
   }
 
-  const startTimer = () => {
+  const startTimer = useCallback(() => {
     setStartTime(Date.now())
-  }
+  },[])
 
   const endTimer = useCallback(() => {
     setEndTime(Date.now())
@@ -184,6 +207,7 @@ const RegexContextProvider: React.FC = (props) => {
     skipWord: skipWordHandler,
     guessedWordsArray: guessedWordsArray,
     guessedRegExArray: guessedRegExArray,
+    guessedTime: guessedTime,
     updateGuessedWords: updateGuessedWords,
     updateGuessedRegEx: updateGuessedRegEx,
     startTime: startTime,
@@ -193,7 +217,7 @@ const RegexContextProvider: React.FC = (props) => {
     validateResult: validateResult,
     fetchUserData: fetchUserData,
     fetchUserProgress: fetchUserProgress,
-    resetUserData: resetUserData
+    resetUserData: resetUserData,
   }
 
   return (

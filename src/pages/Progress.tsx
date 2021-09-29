@@ -17,14 +17,13 @@ const Progress = () => {
   const {pathname} = location
 
   useEffect(() => {
-    numberOfGuessedWords > 1 && fetchUserProgress()
-  }, [fetchUserProgress])
+    numberOfGuessedWords > 0 && fetchUserProgress()
+  }, [fetchUserProgress, numberOfGuessedWords])
 
   useEffect(() => {
     pathname === "/progress" && endTimer()
-    endTime > startTime && setTimeResult((endTime - startTime))
+    endTime > startTime && setTimeResult(endTime - startTime)
   }, [endTimer, pathname, startTime])
-
 
 
   return (

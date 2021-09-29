@@ -32,16 +32,28 @@ const Input: React.FC<userInputProps> = (props) => {
     currentWord,
     wordIndex,
     updateCurrentWord,
-    startTimer,
-    numberOfGuessedWords,
   } = regExContext
   const [word1, word2, word3] = currentWord
 
   const classes = useStyles()
+  console.log('Input running')
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredInput(e.target.value)
     props.userInputHighlight(e.target.value)
+
+
+
+    // let letters: string[] = []
+    // currentWord.map(word => {
+    //  for (let letter of word) {
+    //    letter.search(enteredInput) !== -1 && letters.push(letter)
+
+    //  }
+    //   return letters
+    // })
+
+    
   }
 
   useEffect(() => {
@@ -60,7 +72,7 @@ const Input: React.FC<userInputProps> = (props) => {
     let result: string[] = []
 
 
-    if ([word1, word2, word3].every(word => word.match(enteredInput)![0] === word )) {
+    if ([word1, word2, word3].every(word => word.match(enteredInput) !== null && word.match(enteredInput)![0] === word )) {
       result.push(word1, word2, word3)
     }
 
@@ -76,7 +88,6 @@ const Input: React.FC<userInputProps> = (props) => {
   const inputFocusHandler = () => {
     setWrongInputMessage(false)
     setShowConfetti(false)
-    numberOfGuessedWords === 0 && startTimer()
   }
 
   const skipWordHandler = () => {
@@ -116,4 +127,4 @@ const Input: React.FC<userInputProps> = (props) => {
   )
 }
 
-export default Input
+export default React.memo(Input)

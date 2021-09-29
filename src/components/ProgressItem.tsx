@@ -9,7 +9,7 @@ const ProgressItem: React.FC<{ word: string; wordIndex: number }> = React.memo(
   (props) => {
     const [hover, setHover] = useState<boolean>(false)
     const regExContext = useContext(RegexContext)
-    const { guessedRegExArray } = regExContext
+    const { guessedRegExArray, guessedTime } = regExContext
 
     const cardHoverHandler = (
       e: React.MouseEvent<HTMLHeadingElement, MouseEvent>
@@ -33,15 +33,31 @@ const ProgressItem: React.FC<{ word: string; wordIndex: number }> = React.memo(
       ]
     }
 
+    let guessedTimeTransformed: string[] = []
+
+    for (let value of guessedTime) {
+      guessedTimeTransformed = [...guessedTimeTransformed, value, value, value]
+    }
+
     return (
       <Card>
-        <h3 onMouseEnter={cardHoverHandler} onMouseLeave={cardLeaveHandler} className={classes.wordName}>
+        <h3
+          onMouseEnter={cardHoverHandler}
+          onMouseLeave={cardLeaveHandler}
+          className={classes.wordName}
+        >
           {hover
             ? guessedRegExArrayTransformed.filter(
                 (regex, index) => index === props.wordIndex
               )
-            : props.word}{" "}
+            : props.word}
         </h3>
+        <span className={classes.time}>
+          Time:{" "}
+          {guessedTimeTransformed.filter(
+            (time, index) => index === props.wordIndex
+          )}
+        </span>
         <h5 className={classes.regexName}>
           {guessedRegExArrayTransformed.filter(
             (regex, index) => index === props.wordIndex
