@@ -1,0 +1,16 @@
+.card {
+  width: 15rem;
+  max-width: 90%;
+  padding: 10%;
+  box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.3);
+  background-color: #eef1f0;
+  color: #303f9f;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.card:hover {
+  background-color: #888ba5;
+  cursor: pointer;
+}

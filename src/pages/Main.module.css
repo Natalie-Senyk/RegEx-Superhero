@@ -1,0 +1,139 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.main .content {
+  text-align: center;
+}
+.main .content .formStyle {
+  display: flex;
+  justify-content: center;
+}
+.content .wordToGuess{
+  color: #303F9F;
+  font-weight: bold;
+  display: inline-block;
+  border-bottom: 2px solid #303F9F;
+  margin-bottom: 1rem;
+  margin-left: 0.9rem;
+  background-color:#d7d8e0;
+  border-radius: 3px;
+  padding: 0.3rem 0.5rem;
+
+}
+
+.main .badge {
+  background-color: #67d1a4;
+  padding: 0.25rem 1rem;
+  margin: 0px 10px;
+  border-radius: 25px;
+  font-weight: bold;
+  display: inline-block;
+}
+.main .wordNumber {
+  color: #1f7552;
+  font-weight: bold;
+  font-size: 1.8rem;
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+.main .girl {
+  max-width: 150px;
+  max-height: 355px;
+  animation: girl 2000ms forwards;
+}
+.main .leaf{
+  max-width: 150px;
+  max-height: 255px;
+}
+
+.badge:hover,
+.badge:active {
+  background-color: #1f7552;
+}
+
+.bump {
+  animation: bump 300ms ease-out;
+}
+
+.highlight{
+  background-color: yellow;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes girl {
+  0% {
+    opacity: 0;
+    transform: translateX(180%);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateX(5%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 950px) {
+  .main .girl {
+    max-width: 30%;
+ 
+  }
+  .main .leaf{
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 890px) {
+  .main .leaf{
+    display: none;
+  }
+}
+
+@media (max-width: 765px) {
+  .main .girl{
+    display: none;
+  }
+  .main {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+
+  .main{
+    margin-top: 0;
+  }
+  
+  .main h1{
+    font-size: 1.5rem;
+  }
+  .main h2{
+    font-size: 1rem;
+  }
+}
+
+

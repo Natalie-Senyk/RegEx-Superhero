@@ -1,0 +1,21 @@
+.progress{
+    display: grid;
+    row-gap: 25px;
+    column-gap: 8px;
+    grid-template-columns: repeat(3, auto);
+}
+
+.noProgress{
+    text-align: center;
+
+}
+
+.noProgress a{
+    color: #41e4a0;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.noProgress a:hover, .progress a:active{
+    color: #1a3d2f;
+}

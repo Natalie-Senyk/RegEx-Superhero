@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Gluten:wght@300&display=swap');
+
+.level{
+    font-size: 2.5rem;
+    text-align: center;
+    font-family: 'Gluten', cursive;
+}
+.time{
+    font-family: 'Gluten';
+    font-size: 1.5rem;
+    text-align: center;
+    color: rgb(139, 123, 32);
+}
+
+.badge{
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.badge img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    text-align: center;
+    border: 20px solid #303F9F;
+}
