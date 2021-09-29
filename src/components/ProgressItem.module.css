@@ -8,7 +8,7 @@
     font-weight: 300;
     font-size: 1rem;
     position: absolute;
-    bottom: -28px;
+    bottom: -34px;
     left: 0;
     background-color: #5862a3;
     color: #fff;
@@ -16,4 +16,10 @@
     border-radius: 5px;
     padding: 5px;
 
+}
+
+.time{
+    margin-bottom: 1rem;
+    color: #3f3737;
+    font-style: italic;
 }

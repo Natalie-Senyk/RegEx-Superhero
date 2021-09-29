@@ -28,6 +28,7 @@ describe("Context default values render correctly", () => {
     skipWord: () => void
     guessedWordsArray: string[]
     guessedRegExArray: string[]
+    guessedTime: string[]
     updateGuessedWords: (word: string[]) => void
     updateGuessedRegEx: (regEx: string) => void
     startTime: number
@@ -49,6 +50,7 @@ describe("Context default values render correctly", () => {
   skipWord: () => {},
   guessedWordsArray: [],
   guessedRegExArray: [],
+  guessedTime: [],
   updateGuessedWords: () => {},
   updateGuessedRegEx: () => {},
   startTime: 0,
