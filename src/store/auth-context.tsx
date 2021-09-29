@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import {SIGN_IN_URL, SIGN_UP_URL} from '../urls.config'
 
 type AuthContextObj = {
   enteredEmail: string
@@ -15,6 +16,7 @@ type AuthContextObj = {
   token: undefined | string | null
   login: (token: string) => void
   logout: () => void
+  error: string
 }
 
 export const AuthContext = React.createContext<AuthContextObj>({
@@ -29,25 +31,28 @@ export const AuthContext = React.createContext<AuthContextObj>({
   token: null,
   login: () => {},
   logout: () => {},
+  error: ""
 })
 
 const AuthContextProvider: React.FC = (props) => {
-  const initialToken = localStorage.getItem('token')
+  const initialToken = localStorage.getItem("token")
   const [enteredEmail, setEnteredEmail] = useState<string>("")
   const [enteredPassword, setEnteredPassword] = useState<string>("")
   const [isLogin, setIsLogin] = useState<boolean>(true)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [token, setToken] = useState<string | undefined | null>(initialToken)
+  const [error, setError] = useState<string>('')
+
 
   function loginHandler(token: string) {
     setToken(token)
-    localStorage.setItem('token', token)
+    localStorage.setItem("token", token)
   }
   function logoutHandler() {
     setToken(null)
     setEnteredEmail("")
     setEnteredPassword("")
-    localStorage.removeItem('token')
+    localStorage.removeItem("token")
   }
 
   function enterEmail(value: string) {
@@ -62,13 +67,9 @@ const AuthContextProvider: React.FC = (props) => {
   }
 
   let url: string
-  if (isLogin) {
-    url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDiGf0rtiDfeXmOmoVyIsZ4AG6aoNZguHY"
-  } else {
-    url =
-      "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDiGf0rtiDfeXmOmoVyIsZ4AG6aoNZguHY"
-  }
+
+  isLogin ? url = SIGN_IN_URL : url = SIGN_UP_URL
+        
 
   function fetchData(
     emailErrorMessage: (status: boolean) => void,
@@ -95,16 +96,16 @@ const AuthContextProvider: React.FC = (props) => {
             if (data && data.error && data.error.message) {
               emailErrorMessage(true)
               passwordErrorMessage(true)
+              setError(data.error.message)
             }
           })
         }
       })
       .then((data) => {
         loginHandler(data.idToken)
-     
       })
       .catch((err) => {
-        alert(err.message)
+        setError(err.message)
       })
   }
 
@@ -120,6 +121,7 @@ const AuthContextProvider: React.FC = (props) => {
     token: token,
     login: loginHandler,
     logout: logoutHandler,
+    error: error
   }
 
   return (

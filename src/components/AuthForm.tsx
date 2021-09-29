@@ -24,7 +24,7 @@ const AuthForm: React.FC = () => {
     useState<boolean>(false)
   const styles = useStyles()
   const authCtx = useContext(AuthContext)
-  const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading} = authCtx
+  const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading, error} = authCtx
   const history = useHistory()
 
   const handleClickShowPassword = () => {
@@ -59,7 +59,7 @@ const AuthForm: React.FC = () => {
       return false
     }
     fetchData(setErrorEmailMessage, setErrorPasswordMessage)
-    history.replace('/')
+    !error && history.replace('/')
   }
   return (
     <div className={classes.logout}>

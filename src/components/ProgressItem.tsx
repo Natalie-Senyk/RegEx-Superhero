@@ -33,14 +33,12 @@ const ProgressItem: React.FC<{ word: string; wordIndex: number }> = React.memo(
       ]
     }
 
+    const cardWord = hover ? guessedRegExArrayTransformed.filter((regex, index) => index === props.wordIndex) : props.word
+
     return (
       <Card>
         <h3 onMouseEnter={cardHoverHandler} onMouseLeave={cardLeaveHandler} className={classes.wordName}>
-          {hover
-            ? guessedRegExArrayTransformed.filter(
-                (regex, index) => index === props.wordIndex
-              )
-            : props.word}{" "}
+          {cardWord}
         </h3>
         <h5 className={classes.regexName}>
           {guessedRegExArrayTransformed.filter(
