@@ -28,7 +28,7 @@ const AuthForm: React.FC = () => {
   const authCtx = useContext(AuthContext)
   const regExContext = useContext(RegexContext)
   const  {startTimer} = regExContext
-  const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading} = authCtx
+  const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading, error} = authCtx
   const history = useHistory()
 
 
@@ -55,7 +55,6 @@ const AuthForm: React.FC = () => {
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-
     if (!/@\w+\./.test(enteredEmail)){
       setErrorEmailMessage(true)
       return false
@@ -67,7 +66,7 @@ const AuthForm: React.FC = () => {
     }
     fetchData(setErrorEmailMessage, setErrorPasswordMessage)
     startTimer()
-    history.replace('/')
+    !error && history.replace('/')
   }
   return (
     <div className={classes.logout}>

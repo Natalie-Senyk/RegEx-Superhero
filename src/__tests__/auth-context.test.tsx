@@ -16,6 +16,7 @@ let contextItems = {
   token: "",
   login: jest.fn(),
   logout: jest.fn(),
+  error: ""
 }
 
 describe("Login/Logout Component", () => {

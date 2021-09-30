@@ -2,7 +2,7 @@ import React from "react"
 import Confetti from "react-confetti"
 
 const ConfettiForWinner: React.FC = () => {
-  
+
   const confettiStyle: React.CSSProperties = {
     position: "fixed",
     left: "350px",
