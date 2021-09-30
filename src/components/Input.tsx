@@ -36,7 +36,6 @@ const Input: React.FC<userInputProps> = (props) => {
   const [word1, word2, word3] = currentWord
 
   const classes = useStyles()
-  console.log('Input running')
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredInput(e.target.value)
@@ -55,6 +54,8 @@ const Input: React.FC<userInputProps> = (props) => {
 
     
   }
+
+
 
   useEffect(() => {
     updateCurrentWord()
