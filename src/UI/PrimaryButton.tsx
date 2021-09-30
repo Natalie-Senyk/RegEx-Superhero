@@ -29,6 +29,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
   const regExContext = useContext(RegexContext)
   const { numberOfGuessedWords } = regExContext
 
+
   const endIcon =
     props.name === "submit" ? (
       <Icon>send</Icon>

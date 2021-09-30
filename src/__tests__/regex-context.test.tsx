@@ -28,6 +28,7 @@ describe("Context default values render correctly", () => {
     skipWord: () => void
     guessedWordsArray: string[]
     guessedRegExArray: string[]
+    guessedTime: string[]
     updateGuessedWords: (word: string[]) => void
     updateGuessedRegEx: (regEx: string) => void
     startTime: number
@@ -35,6 +36,9 @@ describe("Context default values render correctly", () => {
     startTimer: () => void
     endTimer: () => void
     validateResult: (input: string) => void
+    fetchUserData: () => void
+    fetchUserProgress: () => void
+    resetUserData: () => void
   }
 
   const contextItems: contextProps = {
@@ -46,13 +50,17 @@ describe("Context default values render correctly", () => {
   skipWord: () => {},
   guessedWordsArray: [],
   guessedRegExArray: [],
+  guessedTime: [],
   updateGuessedWords: () => {},
   updateGuessedRegEx: () => {},
   startTime: 0,
   endTime: 0,
   startTimer: jest.fn(),
   endTimer: () => {},
-  validateResult:  jest.fn()
+  validateResult:  jest.fn(),
+  fetchUserData: jest.fn(),
+  fetchUserProgress: jest.fn(),
+  resetUserData: jest.fn()
   }
 
   it("shows default Level 1 initially", () => {

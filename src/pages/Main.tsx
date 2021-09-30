@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, useCallback } from "react"
 import Input from "../components/Input"
 import classes from "./Main.module.css"
 import MainImage from "../assets/main.png"
@@ -10,9 +10,13 @@ import Highlighter from "react-highlight-words"
 const Main: React.FC = () => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState<boolean>(false)
   const [searchHighlightedInput, setsearchHighlightedInput] =
-    useState<string[]>([])
+    useState<string>('')
   const regExContext = useContext(RegexContext)
-  const { currentWord, currentLevel, numberOfGuessedWords} = regExContext
+  const { currentWord, currentLevel, numberOfGuessedWords, fetchUserData} = regExContext
+
+  useEffect(() => {
+   fetchUserData()
+  }, [fetchUserData])
 
   useEffect(() => {
     if (currentLevel === 1 && numberOfGuessedWords === 0) {
@@ -28,9 +32,9 @@ const Main: React.FC = () => {
     }
   }, [currentLevel, numberOfGuessedWords])
 
-  const userInputHighlightHandler = (userInput: string) => {
-    setsearchHighlightedInput([userInput])
-  }
+  const userInputHighlightHandler = useCallback((userInput: string) => {
+    setsearchHighlightedInput(userInput)
+  },[])
 
   return (
     <div className={classes.main}>
@@ -65,7 +69,7 @@ const Main: React.FC = () => {
             key={word}
             className={classes.wordToGuess}
             data-testid="current-word"
-            searchWords={searchHighlightedInput!}
+            searchWords={[searchHighlightedInput]!}
             autoEscape={true}
             textToHighlight={word}
           />
@@ -90,12 +94,3 @@ const Main: React.FC = () => {
 }
 
 export default Main
-
-/* <span
-            key={word}
-            className={`${classes.wordToGuess} ${highlightClass ? classes.highlight : ''}`}
-            style={{backgroundColor: highlightClass ? 'yellow' : '#d7d8e0'}}
-            data-testid="current-word"
-          >
-            {word}{" "}
-          </span> */

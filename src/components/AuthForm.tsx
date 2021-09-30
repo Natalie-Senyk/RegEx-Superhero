@@ -10,6 +10,8 @@ import IconButton from "@material-ui/core/IconButton"
 import Visibility from "@material-ui/icons/Visibility"
 import VisibilityOff from "@material-ui/icons/VisibilityOff"
 import { AuthContext } from "../store/auth-context"
+import { RegexContext } from "../store/regex-context"
+
 
 const useStyles = makeStyles(() => ({
   logoutField: {
@@ -24,15 +26,19 @@ const AuthForm: React.FC = () => {
     useState<boolean>(false)
   const styles = useStyles()
   const authCtx = useContext(AuthContext)
+  const regExContext = useContext(RegexContext)
+  const  {startTimer} = regExContext
   const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading, error} = authCtx
   const history = useHistory()
+
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+  const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
   }
 
   const switchAuthModeHandler = () => {
@@ -59,6 +65,7 @@ const AuthForm: React.FC = () => {
       return false
     }
     fetchData(setErrorEmailMessage, setErrorPasswordMessage)
+    startTimer()
     !error && history.replace('/')
   }
   return (
