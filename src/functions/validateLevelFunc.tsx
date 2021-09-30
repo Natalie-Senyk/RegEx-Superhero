@@ -1,3 +1,5 @@
+// need to optimize this one later
+
 export function validateLevel(
   guessedWords: number,
   updateLevelFunc: (level: number) => void
