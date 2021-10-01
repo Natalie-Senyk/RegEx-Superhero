@@ -18,7 +18,6 @@ describe("Context default values render correctly", () => {
   })
 
 
-
   type contextProps = {
     currentLevel: number
     wordIndex: number
@@ -33,12 +32,15 @@ describe("Context default values render correctly", () => {
     updateGuessedRegEx: (regEx: string) => void
     startTime: number
     endTime: number
+    timeResult: number
     startTimer: () => void
     endTimer: () => void
     validateResult: (input: string) => void
     fetchUserData: () => void
     fetchUserProgress: () => void
     resetUserData: () => void
+    userProgress: any
+    updateFetchRequests: () => void
   }
 
   const contextItems: contextProps = {
@@ -55,12 +57,15 @@ describe("Context default values render correctly", () => {
   updateGuessedRegEx: () => {},
   startTime: 0,
   endTime: 0,
+  timeResult: 0,
   startTimer: jest.fn(),
   endTimer: () => {},
   validateResult:  jest.fn(),
   fetchUserData: jest.fn(),
   fetchUserProgress: jest.fn(),
-  resetUserData: jest.fn()
+  resetUserData: jest.fn(),
+  userProgress: [],
+  updateFetchRequests: jest.fn()
   }
 
   it("shows default Level 1 initially", () => {

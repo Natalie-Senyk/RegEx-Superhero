@@ -6,43 +6,77 @@ import ProgressItem from "../components/ProgressItem"
 import { Link } from "react-router-dom"
 import WaveImg from "../assets/wave.png"
 import LevelBadge from "../components/LevelBadge"
+import SearchField from "../UI/SearchField"
+
+
+type progressFetchedData = {
+  guessedWords: string[]
+  guessedTime: string
+  guessedRegEx: string
+}
 
 const Progress = () => {
-  const [timeResult, setTimeResult] = useState<number>(0)
+  const [searchEnabled, setSearchEnabled] = useState<boolean>(false)
+  const [filteredCards, setFilteredCards] = useState<progressFetchedData[] | undefined>([])
   const regExContext = useContext(RegexContext)
-  const {guessedWordsArray, startTime, endTime, endTimer, fetchUserProgress, numberOfGuessedWords} = regExContext
-
+  const { endTimer, fetchUserProgress, userProgress, numberOfGuessedWords } =
+    regExContext
 
   const location = useLocation()
-  const {pathname} = location
+  const { pathname } = location
 
   useEffect(() => {
-    numberOfGuessedWords > 0 && fetchUserProgress()
-  }, [fetchUserProgress, numberOfGuessedWords])
+    fetchUserProgress()
+  }, [fetchUserProgress])
 
   useEffect(() => {
     pathname === "/progress" && endTimer()
-    endTime > startTime && setTimeResult(endTime - startTime)
-  }, [endTimer, pathname, startTime])
+  }, [endTimer, pathname])
 
+  const onSearchHandler = (filteredResult: progressFetchedData[] | undefined) => {
+    filteredResult!.length > 0 ? setSearchEnabled(true) : setSearchEnabled(false)
+    filteredResult!.length > 0 && setFilteredCards(filteredResult)
+
+  }
+
+  const progressCards =
+    numberOfGuessedWords > 1 && !searchEnabled ? 
+    userProgress!.map((card, index) => (
+      <ProgressItem
+        words={card.guessedWords}
+        regex={card.guessedRegEx}
+        time={card.guessedTime}
+        key={index}
+      />
+    )) : filteredCards!.map((card, index) => (
+      <ProgressItem
+        words={card.guessedWords}
+        regex={card.guessedRegEx}
+        time={card.guessedTime}
+        key={index}
+      />
+    )) 
 
   return (
     <>
-      {guessedWordsArray.length > 0 && <LevelBadge time={timeResult} />}
+      {numberOfGuessedWords > 1 && <LevelBadge />}
+      {numberOfGuessedWords > 1 && <SearchField onSearch={onSearchHandler} />}
       <div
         data-testid="progress"
-        className={guessedWordsArray.length ? classes.progress : ""}
+        className={numberOfGuessedWords > 1 ? classes.progress : ""}
       >
-        {guessedWordsArray.length > 0 ? (
-          guessedWordsArray.map((word, index) => (
-            <ProgressItem word={word} wordIndex={index} key={index} />
-          ))
+        {numberOfGuessedWords > 1 ? (
+          progressCards
         ) : (
           <div className={classes.noProgress}>
             <h3>
               No guessed words yet. <Link to="/">Go back </Link>to home page
             </h3>
-            <img src={WaveImg} alt="" />
+            <img
+              src={WaveImg}
+              alt="Wave"
+              className="animate__animated animate__bounce animate__delay-1s"
+            />
           </div>
         )}
       </div>

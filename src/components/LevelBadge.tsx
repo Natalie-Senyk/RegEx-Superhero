@@ -6,14 +6,11 @@ import Pro from "../assets/pro.png"
 import Mid from "../assets/mid.png"
 import { millisecondsToMinutes } from "date-fns"
 
-type TimeProps = {
-  time: number
-}
 
-const LevelBadge: React.FC<TimeProps> = (props) => {
+const LevelBadge: React.FC = () => {
   const regExContext = useContext(RegexContext)
   const { numberOfGuessedWords } = regExContext
-  let convertedTimeResult = millisecondsToMinutes(props.time)
+  let convertedTimeResult = millisecondsToMinutes(regExContext.timeResult)
 
   let level: string
   numberOfGuessedWords <= 15

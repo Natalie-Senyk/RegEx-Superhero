@@ -2,7 +2,7 @@
 
 export const setTimeEvent = (callback: (name: boolean) => void) => {
    setTimeout(() => callback(true), 0)
-  window.location.pathname !== '/' && callback(false)
+  window.location.pathname !== '/' && callback(false) 
 }
 
 

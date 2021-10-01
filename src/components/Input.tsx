@@ -41,17 +41,6 @@ const Input: React.FC<userInputProps> = (props) => {
     setEnteredInput(e.target.value)
     props.userInputHighlight(e.target.value)
 
-
-
-    // let letters: string[] = []
-    // currentWord.map(word => {
-    //  for (let letter of word) {
-    //    letter.search(enteredInput) !== -1 && letters.push(letter)
-
-    //  }
-    //   return letters
-    // })
-
     
   }
 
@@ -79,6 +68,7 @@ const Input: React.FC<userInputProps> = (props) => {
 
     if (result.length) {
       regExContext.validateResult(enteredInput)
+      regExContext.updateFetchRequests()
       setTimeEvent(setShowConfetti)
     } else {
       setWrongInputMessage(true)
