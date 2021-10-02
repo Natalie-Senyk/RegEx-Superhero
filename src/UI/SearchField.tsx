@@ -35,7 +35,10 @@ type progressFetchedData = {
 }
 
 type searchFieldProps = {
-  onSearch: (filteredResult: progressFetchedData[] | undefined) => void
+  onSearch: (
+    filteredResult: progressFetchedData[] | undefined,
+    userQuery: string
+  ) => void
 }
 const SearchField: React.FC<searchFieldProps> = (props) => {
   const classes = useStyles()
@@ -61,13 +64,13 @@ const SearchField: React.FC<searchFieldProps> = (props) => {
           guessedRegEx: data[key].guessedRegEx,
         })
       }
-      setFilteredData(
-        userProgressTransformed!.filter(
-          (item: progressFetchedData) =>
-            item.guessedTime!.match(userQuery) !== null
+      userQuery &&
+        setFilteredData(
+          userProgressTransformed!.filter(
+            (item: progressFetchedData) =>
+              item.guessedTime!.match(userQuery) !== null
+          )
         )
-      )
-      console.log(filteredData)
     } catch (error: any) {
       throw new Error(error.message)
     }
@@ -77,7 +80,7 @@ const SearchField: React.FC<searchFieldProps> = (props) => {
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserQuery(e.target.value)
-    props.onSearch(filteredData)
+    props.onSearch(filteredData, userQuery)
   }
 
   useEffect(() => {

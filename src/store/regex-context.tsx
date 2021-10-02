@@ -6,6 +6,8 @@ type RegexContextObj = {
   currentLevel: number
   wordIndex: number
   currentWord: string[]
+  enteredInput: string
+  updateEnteredInput: (input: string) => void
   numberOfGuessedWords: number
   updateCurrentWord: () => void
   skipWord: () => void
@@ -18,11 +20,11 @@ type RegexContextObj = {
   fetchUserData: () => void
   fetchUserProgress: () => void
   resetUserData: () => void
-  userProgress: progressFetchedData[] | undefined
+  userProgress: userProgress[] | undefined
   updateFetchRequests: () => void
 }
 
-type progressFetchedData = {
+type userProgress = {
   guessedWords: string[]
   guessedTime: string
   guessedRegEx: string
@@ -32,6 +34,8 @@ export const RegexContext = React.createContext<RegexContextObj>({
   currentLevel: 1,
   wordIndex: 0,
   currentWord: [],
+  enteredInput: '',
+  updateEnteredInput: () => {},
   numberOfGuessedWords: 0,
   updateCurrentWord: () => {},
   skipWord: () => {},
@@ -53,13 +57,13 @@ const RegexContextProvider: React.FC = (props) => {
   const [wordIndex, setWordIndex] = useState<number>(0)
   const [curLevel, setCurLevel] = useState<number>(1)
   const [currentWord, setCurrentWord] = useState<string[]>(regExpressions[0])
-  const [currentRegEx, setCurrentRegEx] = useState<string>('')
+  const [enteredInput, setEnteredInput] = useState<string>('')
   const [currentTime, setCurrentTime] = useState<string>(new Date().toLocaleString())
   const [guessedWords, setGuessedWords] = useState<number>(0)
   const [startTime, setStartTime] = useState<number>(new Date().getTime())
   const [endTime, setEndTime] = useState<number>(0)
   const [timeResult, setTimeResult] = useState<number>(0)
-  const [userProgress, setUserProgress] = useState<progressFetchedData[]>([
+  const [userProgress, setUserProgress] = useState<userProgress[]>([
     {
       guessedWords: [],
       guessedRegEx: "",
@@ -107,14 +111,14 @@ const RegexContextProvider: React.FC = (props) => {
         },
         body: JSON.stringify({
           guessedWords: currentWord,
-          guessedRegEx: currentRegEx,
+          guessedRegEx: enteredInput,
           guessedTime: currentTime,
         }),
       }
     )
   }
 
-  const fetchUserProgress = useCallback(async () => {
+  const fetchUserProgress = useCallback(async() => {
     try {
       const response = await fetch(
         "https://regex-superhero-default-rtdb.firebaseio.com/progress.json"
@@ -128,7 +132,7 @@ const RegexContextProvider: React.FC = (props) => {
       }
       let userProgressTransformed: any = []
       for (let key in data) {
-        userProgressTransformed.push({
+       await userProgressTransformed.push({
           guessedWords: data[key].guessedWords,
           guessedTime: data[key].guessedTime,
           guessedRegEx: data[key].guessedRegEx,
@@ -189,15 +193,11 @@ const RegexContextProvider: React.FC = (props) => {
     setCurrentTime(new Date().toLocaleString())
   }
 
-  function updateGuessedRegEx(enteredInput: string) {
-    setCurrentRegEx(enteredInput)
-  }
 
   function validateResult(enteredInput: string) {
     updateGuessedTime()
     updateWordIndex()
     updateCurrentWord()
-    updateGuessedRegEx(enteredInput)
     updateWordsNumber()
     validateLevel(guessedWords, setCurLevel)
   }
@@ -205,6 +205,10 @@ const RegexContextProvider: React.FC = (props) => {
   function updateFetchRequests() {
     updateUserData()
     updateUserProgress()
+  }
+
+  function updateEnteredInput(input: string) {
+    setEnteredInput(input)
   }
 
   const startTimer = useCallback(() => {
@@ -220,6 +224,8 @@ const RegexContextProvider: React.FC = (props) => {
     currentLevel: curLevel,
     wordIndex: wordIndex,
     currentWord: currentWord,
+    enteredInput: enteredInput,
+    updateEnteredInput: updateEnteredInput,
     numberOfGuessedWords: guessedWords,
     updateCurrentWord: updateCurrentWord,
     skipWord: skipWordHandler,

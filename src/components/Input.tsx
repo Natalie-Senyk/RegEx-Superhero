@@ -24,7 +24,6 @@ type userInputProps = {
 }
 
 const Input: React.FC<userInputProps> = (props) => {
-  const [enteredInput, setEnteredInput] = useState<string>("")
   const [showConfetti, setShowConfetti] = useState<boolean>(false)
   const [wrongInputMessage, setWrongInputMessage] = useState<boolean>(false)
   const regExContext = useContext(RegexContext)
@@ -32,13 +31,15 @@ const Input: React.FC<userInputProps> = (props) => {
     currentWord,
     wordIndex,
     updateCurrentWord,
+    enteredInput,
+    updateEnteredInput
   } = regExContext
   const [word1, word2, word3] = currentWord
 
   const classes = useStyles()
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredInput(e.target.value)
+    updateEnteredInput(e.target.value)
     props.userInputHighlight(e.target.value)
 
     
@@ -73,7 +74,7 @@ const Input: React.FC<userInputProps> = (props) => {
     } else {
       setWrongInputMessage(true)
     }
-    setEnteredInput("")
+    updateEnteredInput("")
   }
 
   const inputFocusHandler = () => {

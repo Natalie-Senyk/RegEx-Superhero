@@ -22,6 +22,8 @@ describe("Context default values render correctly", () => {
     currentLevel: number
     wordIndex: number
     currentWord: string[]
+    enteredInput: string
+    updateEnteredInput: (input: string) => void
     numberOfGuessedWords: number
     updateCurrentWord: () => void
     skipWord: () => void
@@ -47,6 +49,8 @@ describe("Context default values render correctly", () => {
   currentLevel: 1,
   wordIndex: 0,
   currentWord: [],
+  enteredInput: '',
+  updateEnteredInput: () => {},
   numberOfGuessedWords: 0,
   updateCurrentWord: () => {},
   skipWord: () => {},

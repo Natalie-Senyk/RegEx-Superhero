@@ -7,9 +7,9 @@ import { Link } from "react-router-dom"
 import WaveImg from "../assets/wave.png"
 import LevelBadge from "../components/LevelBadge"
 import SearchField from "../UI/SearchField"
+import PrimarySpinner from "../UI/Spinner"
 
-
-type progressFetchedData = {
+type userProgress = {
   guessedWords: string[]
   guessedTime: string
   guessedRegEx: string
@@ -17,45 +17,63 @@ type progressFetchedData = {
 
 const Progress = () => {
   const [searchEnabled, setSearchEnabled] = useState<boolean>(false)
-  const [filteredCards, setFilteredCards] = useState<progressFetchedData[] | undefined>([])
+  const [filteredCards, setFilteredCards] = useState<
+    userProgress[] | undefined
+  >([])
+  const [spinner, setSpinner] = useState<boolean>(true)
   const regExContext = useContext(RegexContext)
-  const { endTimer, fetchUserProgress, userProgress, numberOfGuessedWords } =
+  const { endTimer, fetchUserProgress, fetchUserData, userProgress, numberOfGuessedWords } =
     regExContext
 
   const location = useLocation()
   const { pathname } = location
 
   useEffect(() => {
-    fetchUserProgress()
-  }, [fetchUserProgress])
+    fetchUserData()
+    numberOfGuessedWords > 0 && fetchUserProgress()
+     setTimeout(() => {setSpinner(false)}, 1000)
+  }, [fetchUserProgress, fetchUserData, numberOfGuessedWords])
 
   useEffect(() => {
     pathname === "/progress" && endTimer()
   }, [endTimer, pathname])
 
-  const onSearchHandler = (filteredResult: progressFetchedData[] | undefined) => {
-    filteredResult!.length > 0 ? setSearchEnabled(true) : setSearchEnabled(false)
+  const onSearchHandler = (
+    filteredResult: userProgress[] | undefined,
+    userQuery: string
+  ) => {
+    filteredResult!.length > 0
+      ? setSearchEnabled(true)
+      : setSearchEnabled(false)
     filteredResult!.length > 0 && setFilteredCards(filteredResult)
-
   }
 
   const progressCards =
-    numberOfGuessedWords > 1 && !searchEnabled ? 
-    userProgress!.map((card, index) => (
-      <ProgressItem
-        words={card.guessedWords}
-        regex={card.guessedRegEx}
-        time={card.guessedTime}
-        key={index}
-      />
-    )) : filteredCards!.map((card, index) => (
-      <ProgressItem
-        words={card.guessedWords}
-        regex={card.guessedRegEx}
-        time={card.guessedTime}
-        key={index}
-      />
-    )) 
+    numberOfGuessedWords > 1 && !searchEnabled
+      ? userProgress!.map((card, index) => (
+          <ProgressItem
+            words={card.guessedWords}
+            regex={card.guessedRegEx}
+            time={card.guessedTime}
+            key={index}
+          />
+        ))
+      : filteredCards!.map((card, index) => (
+          <ProgressItem
+            words={card.guessedWords}
+            regex={card.guessedRegEx}
+            time={card.guessedTime}
+            key={index}
+          />
+        ))
+
+  if (spinner) {
+    return (
+      <section>
+        <PrimarySpinner /> <h3 className={classes.loadingText}>Loading your progress data...</h3>
+      </section>
+    )
+  }
 
   return (
     <>
@@ -69,6 +87,7 @@ const Progress = () => {
           progressCards
         ) : (
           <div className={classes.noProgress}>
+            {/* {spinner && <PrimarySpinner />} */}
             <h3>
               No guessed words yet. <Link to="/">Go back </Link>to home page
             </h3>
