@@ -86,8 +86,7 @@ const Progress = () => {
         {numberOfGuessedWords > 1 ? (
           progressCards
         ) : (
-          <div className={classes.noProgress}>
-            {/* {spinner && <PrimarySpinner />} */}
+          <div data-testid="no-progress" className={classes.noProgress}>
             <h3>
               No guessed words yet. <Link to="/">Go back </Link>to home page
             </h3>

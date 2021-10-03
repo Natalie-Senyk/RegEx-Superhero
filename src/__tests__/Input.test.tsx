@@ -2,11 +2,10 @@ import { render, screen, fireEvent } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import "@testing-library/jest-dom"
 import Input from "../components/Input"
-import React from "react"
 
 describe("Input component", () => {
   beforeEach(() => {
-    render(<Input />)
+    render(<Input userInputHighlight={() => {}} />)
   })
   it("should display form on the main page", () => {
     const form = screen.getByTestId("form")
@@ -49,13 +48,6 @@ describe("Input component", () => {
     const inputEl = screen.getByLabelText(/Enter your regex here/i)
     expect(inputEl).toHaveAttribute('id')
   })
-  // it("shows Invalid expression message if input is incorrect", async() => {
-  //   const enteredInput = screen.getByLabelText(/Enter your regex here/i)
-  //   await fireEvent.change(enteredInput, {target: {value: /\w{20}/}})
-  //   fireEvent.click(screen.getByText("submit"))
-  //   expect(screen.findByLabelText(/Invalid expression/i)).not.toBeNull()
-
-  // })
   it("doesn`t show Invalid expression message if user submits empty input, just the usual label", async() => {
 
     const enteredInput = screen.getByLabelText(/Enter your regex here/i)

@@ -46,7 +46,7 @@ const Main: React.FC = () => {
   return (
     <div className={classes.main}>
       <div className={classes.content}>
-        <h1>
+        <h1 data-testid="level">
           Your current level:
           <span
             className={`${classes.badge} ${
