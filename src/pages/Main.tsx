@@ -10,12 +10,18 @@ import Highlighter from "react-highlight-words"
 const Main: React.FC = () => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState<boolean>(false)
   const [searchHighlightedInput, setsearchHighlightedInput] =
-    useState<string>('')
+    useState<string>("")
   const regExContext = useContext(RegexContext)
-  const { currentWord, currentLevel, numberOfGuessedWords, fetchUserData} = regExContext
+  const {
+    currentWord,
+    currentLevel,
+    numberOfGuessedWords,
+    fetchUserData,
+  } = regExContext
+
 
   useEffect(() => {
-   fetchUserData()
+    fetchUserData()
   }, [fetchUserData])
 
   useEffect(() => {
@@ -34,12 +40,13 @@ const Main: React.FC = () => {
 
   const userInputHighlightHandler = useCallback((userInput: string) => {
     setsearchHighlightedInput(userInput)
-  },[])
+  }, [])
+
 
   return (
     <div className={classes.main}>
       <div className={classes.content}>
-        <h1>
+        <h1 data-testid="level">
           Your current level:
           <span
             className={`${classes.badge} ${

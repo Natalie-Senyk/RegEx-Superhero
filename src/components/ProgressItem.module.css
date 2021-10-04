@@ -8,18 +8,20 @@
     font-weight: 300;
     font-size: 1rem;
     position: absolute;
-    bottom: -34px;
+    bottom: -40px;
     left: 0;
     background-color: #5862a3;
     color: #fff;
     width: 100%;
     border-radius: 5px;
-    padding: 5px;
+    padding: 8px;
 
 }
 
 .time{
     margin-bottom: 1rem;
-    color: #3f3737;
+    color: #9c8a23;
     font-style: italic;
+    font-weight: 600;
+
 }
