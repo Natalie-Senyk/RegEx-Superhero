@@ -128,4 +128,4 @@ const Input: React.FC<userInputProps> = (props) => {
   )
 }
 
-export default React.memo(Input)
+export default Input
