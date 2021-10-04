@@ -4,14 +4,11 @@ import classes from "./LevelBadge.module.css"
 import Newbee from "../assets/newbee.png"
 import Pro from "../assets/pro.png"
 import Mid from "../assets/mid.png"
-import { millisecondsToMinutes } from "date-fns"
-
+// import { millisecondsToMinutes } from "date-fns"
 
 const LevelBadge: React.FC = () => {
   const regExContext = useContext(RegexContext)
-  const { numberOfGuessedWords } = regExContext
-  let convertedTimeResult = millisecondsToMinutes(regExContext.timeResult)
-
+  const { numberOfGuessedWords, timeResult } = regExContext
   let level: string
   numberOfGuessedWords <= 15
     ? (level = "NEWBEE")
@@ -31,9 +28,7 @@ const LevelBadge: React.FC = () => {
     <div>
       <h1 className={classes.level}>Congrats, your level is {level}!</h1>
       <h4 className={classes.time}>
-        {convertedTimeResult === 0
-          ? `Great job! You did it in less than a minute!`
-          : `It took you ${convertedTimeResult} min`}
+        Great job! You did it in {timeResult}
       </h4>
       <div className={classes.badge}>
         <img

@@ -1,0 +1,21 @@
+.timer{
+    text-align: center;
+    width: 100px;
+    background-color: #72779c;
+    border: 1px solid #5d659c;
+    color: rgb(245, 238, 238);
+    border-radius: 10%;
+    padding: 0.4rem;
+}
+
+.timer span{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 0.7rem;
+    margin-right: 0.2rem;
+}
+.timer .timeFormat{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -22,7 +22,7 @@ const Progress = () => {
   >([])
   const [spinner, setSpinner] = useState<boolean>(true)
   const regExContext = useContext(RegexContext)
-  const { endTimer, fetchUserProgress, fetchUserData, userProgress, numberOfGuessedWords } =
+  const { pauseTimer, fetchUserProgress, fetchUserData, userProgress, numberOfGuessedWords } =
     regExContext
 
   const location = useLocation()
@@ -35,8 +35,8 @@ const Progress = () => {
   }, [fetchUserProgress, fetchUserData, numberOfGuessedWords])
 
   useEffect(() => {
-    pathname === "/progress" && endTimer()
-  }, [endTimer, pathname])
+    pathname === "/progress" && pauseTimer()
+  }, [pauseTimer, pathname])
 
   const onSearchHandler = (
     filteredResult: userProgress[] | undefined,

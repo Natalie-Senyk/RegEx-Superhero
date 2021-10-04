@@ -13,22 +13,17 @@ let contextItems = {
   numberOfGuessedWords: 0,
   updateCurrentWord: () => {},
   skipWord: () => {},
-  guessedWordsArray: [],
-  guessedRegExArray: [],
-  guessedTime: [],
-  updateGuessedWords: () => {},
-  updateGuessedRegEx: () => {},
-  startTime: 0,
-  endTime: 0,
-  timeResult: 0,
-  startTimer: jest.fn(),
-  endTimer: () => {},
-  validateResult: jest.fn(),
-  fetchUserData: jest.fn(),
-  fetchUserProgress: jest.fn(),
-  resetUserData: jest.fn(),
+  timerIsActive: false,
+  launchTimer: () => {},
+  pauseTimer: () => {},
+  timeResult: "",
+  updateTimeResultStatement: () => {},
+  validateResult: () => {},
+  fetchUserData: () => {},
+  fetchUserProgress: () => {},
+  resetUserData: () => {},
   userProgress: [],
-  updateFetchRequests: jest.fn(),
+  updateFetchRequests: () => {},
 }
 
 describe("Level Badge and user overall progress", () => {
@@ -77,7 +72,7 @@ describe("Level Badge and user overall progress", () => {
   it("shows the text 'You did it less than a minute' if the converted time result is === 0 minutes ", async() => {
     contextItems = {
         ...contextItems,
-        timeResult: 50000,
+        timeResult: 'less than a minute!'
       }
       render(
         <RegexContext.Provider value={contextItems}>
@@ -88,10 +83,10 @@ describe("Level Badge and user overall progress", () => {
     const timeProgress = await screen.findByText("Great job! You did it in less than a minute!")
     expect(timeProgress).toBeInTheDocument()
   })
-  it("it shows the text 'It took you ...' if the converted time result is === more than 1 min", async() => {
+  it("it shows the text 'Great job! You did it in ...' if the converted time result is === more than 1 min", async() => {
     contextItems = {
         ...contextItems,
-        timeResult: 65000,
+        timeResult: '3 minutes'
       }
       render(
         <RegexContext.Provider value={contextItems}>
@@ -99,7 +94,7 @@ describe("Level Badge and user overall progress", () => {
         </RegexContext.Provider>
       )
 
-    const timeProgress = await screen.findByText("It took you 1 min")
+    const timeProgress = await screen.findByText("Great job! You did it in 3 minutes")
     expect(timeProgress).toBeInTheDocument()
   })
 })

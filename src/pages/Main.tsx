@@ -17,12 +17,14 @@ const Main: React.FC = () => {
     currentLevel,
     numberOfGuessedWords,
     fetchUserData,
+    launchTimer
   } = regExContext
 
 
   useEffect(() => {
     fetchUserData()
-  }, [fetchUserData])
+    launchTimer()
+  }, [fetchUserData, launchTimer])
 
   useEffect(() => {
     if (currentLevel === 1 && numberOfGuessedWords === 0) {

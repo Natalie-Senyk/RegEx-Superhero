@@ -4,21 +4,21 @@ import classes from "./Navigation.module.css"
 import { AuthContext } from "../../store/auth-context"
 import PopOver from "../../UI/PopOver"
 import { RegexContext } from "../../store/regex-context"
+import TimeTracker from "../TimeTracker"
 
 const Navigation: React.FC = () => {
   const authCtx = useContext(AuthContext)
   const regExContext = useContext(RegexContext)
   const { token } = authCtx
 
-
   const logoutHandler = () => {
     authCtx.logout()
     regExContext.resetUserData()
-
   }
 
   return (
     <header className={classes.header}>
+      {token !== null && <TimeTracker />}
       <div className={classes.logo}>
         <NavLink to="/">/r/e/g/e/x/ </NavLink>
       </div>

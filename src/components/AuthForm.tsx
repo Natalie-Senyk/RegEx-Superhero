@@ -27,7 +27,7 @@ const AuthForm: React.FC = () => {
   const styles = useStyles()
   const authCtx = useContext(AuthContext)
   const regExContext = useContext(RegexContext)
-  const  {startTimer} = regExContext
+  const  {launchTimer} = regExContext
   const { enteredEmail, enteredPassword, enterEmail, enterPassword, isLogin, handleIsLogin, fetchData, isLoading, error} = authCtx
   const history = useHistory()
 
@@ -65,7 +65,7 @@ const AuthForm: React.FC = () => {
       return false
     }
     fetchData(setErrorEmailMessage, setErrorPasswordMessage)
-    startTimer()
+    !error && launchTimer()
     !error && history.replace('/')
   }
   return (
