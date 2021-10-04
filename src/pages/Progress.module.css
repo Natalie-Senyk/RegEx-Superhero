@@ -19,3 +19,7 @@
 .noProgress a:hover, .progress a:active{
     color: #1a3d2f;
 }
+.loadingText {
+    text-align: center;
+    font-weight: 500;
+}

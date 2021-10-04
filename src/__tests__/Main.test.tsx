@@ -1,7 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import Main from "../pages/Main"
 import "@testing-library/jest-dom"
-import userEvent from "@testing-library/user-event"
+
 
 describe("Main component", () => {
   beforeEach(() => {
@@ -35,6 +35,6 @@ describe("Main component", () => {
   })
   it("should correspond to snapshot", () => {
     const { asFragment } = render(<Main />)
-    expect(asFragment(<Main />)).toMatchSnapshot()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
