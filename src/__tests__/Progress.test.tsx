@@ -27,7 +27,7 @@ let contextItems = {
   timerIsActive: false,
   launchTimer: () => {},
   pauseTimer: () => {},
-  timeResult: "",
+  timeResult: 0,
   updateTimeResultStatement: () => {},
   validateResult: () => {},
   fetchUserData: () => {},

@@ -1,14 +1,16 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { NavLink } from "react-router-dom"
 import classes from "./Navigation.module.css"
 import { AuthContext } from "../../store/auth-context"
 import PopOver from "../../UI/PopOver"
 import { RegexContext } from "../../store/regex-context"
 import TimeTracker from "../TimeTracker"
+import PrimaryButton from "../../UI/PrimaryButton"
 
 const Navigation: React.FC = () => {
   const authCtx = useContext(AuthContext)
   const regExContext = useContext(RegexContext)
+  const [showTimer, setShowTimer] = useState<boolean>(false)
   const { token } = authCtx
 
   const logoutHandler = () => {
@@ -16,9 +18,16 @@ const Navigation: React.FC = () => {
     regExContext.resetUserData()
   }
 
+  const showTrackerHandler = () => {
+    setShowTimer(true)
+  }
+
   return (
     <header className={classes.header}>
-      {token !== null && <TimeTracker />}
+      {!showTimer && (
+        <PrimaryButton name="track time" onClick={showTrackerHandler} />
+      )}
+      {token !== null && showTimer && <TimeTracker />}
       <div className={classes.logo}>
         <NavLink to="/">/r/e/g/e/x/ </NavLink>
       </div>
