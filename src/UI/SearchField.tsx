@@ -71,7 +71,6 @@ const SearchField: React.FC<searchFieldProps> = (props) => {
               item.guessedTime!.match(userQuery) !== null
           )
         )
-        console.log(userProgressTransformed)
     } catch (error: any) {
       throw new Error(error.message)
     }
