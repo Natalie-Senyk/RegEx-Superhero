@@ -15,8 +15,8 @@ type RegexContextObj = {
   timerIsActive: boolean
   launchTimer: () => void
   pauseTimer: () => void
-  timeResult: number
-  updateTimeResultStatement: (initialTime: number, endTime: number) => void
+  timeResult: number | string
+  updateTimeResultStatement: (minutes: number, hours: number) => void
   validateResult: (input: string) => void
   fetchUserData: () => void
   fetchUserProgress: () => void
@@ -64,7 +64,7 @@ const RegexContextProvider: React.FC = (props) => {
   )
   const [guessedWords, setGuessedWords] = useState<number>(0)
   const [timerIsActive, setTimerIsActive] = useState(false)
-  const [timeResult, setTimeResult] = useState<number>(0)
+  const [timeResult, setTimeResult] = useState<number | string>(0)
   const [userProgress, setUserProgress] = useState<userProgress[]>([
     {
       guessedWords: [],
@@ -205,12 +205,29 @@ const RegexContextProvider: React.FC = (props) => {
     setTimerIsActive(false)
   }, [])
 
-  const updateTimeResultStatement = useCallback(
-    (initialTime: number, endTime: number) => {
-      setTimeResult(endTime - initialTime)
-    },
-    []
-  )
+  // const updateTimeResultStatement = useCallback(
+  //   (initialTime: number, endTime: number) => {
+  //     setTimeResult(endTime - initialTime)
+  //   },
+  //   []
+  // )
+
+  const updateTimeResultStatement = useCallback((
+    minutes: number,
+    hours: number
+  ) => {
+    hours === 0 && minutes === 0 && setTimeResult("less than a minute!")
+    hours === 0 && minutes > 1 && setTimeResult(`${minutes} minutes`)
+    hours === 0 && minutes === 1 && setTimeResult(`${minutes} minute`)
+
+    hours > 1 && minutes === 0 && setTimeResult(`${hours} hours`)
+    hours > 1 && minutes === 1 && setTimeResult(`${hours} hours and ${minutes} minute`)
+    hours > 1 && minutes > 1 && setTimeResult(`${hours} hours and ${minutes} minutes`)
+
+    hours === 1 && minutes === 0 && setTimeResult(`${hours} hour`)
+    hours === 1 && minutes === 1 && setTimeResult(`${hours} hour and ${minutes} minute`)
+    hours === 1 && minutes > 1 && setTimeResult(`${hours} hour and ${minutes} minutes`)
+  },[])
 
   const contextValue: RegexContextObj = {
     currentLevel: curLevel,

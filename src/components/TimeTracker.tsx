@@ -1,58 +1,36 @@
 import { Timer } from "@material-ui/icons"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { RegexContext } from "../store/regex-context"
-import { AuthContext } from "../store/auth-context"
 import classes from "./TimeTracker.module.css"
 import { useLocation } from "react-router-dom"
-import { format, startOfSecond } from "date-fns"
+import { useStopwatch } from "react-timer-hook"
 
 const TimeTracker = () => {
-  const [time, setTime] = useState<string | Date>("00: 00: 00")
-  const [initialTime, setInitialTime] = useState<number>(0)
-  const [endTime, setEndTime] = useState<number>(0)
   const location = useLocation()
   const { pathname } = location
 
   const regExContext = useContext(RegexContext)
-  const authCtx = useContext(AuthContext)
-  const { timerIsActive, updateTimeResultStatement } = regExContext
-  const { token } = authCtx
+  const { updateTimeResultStatement } = regExContext
+
+  const { seconds, minutes, hours, start, pause } = useStopwatch({
+    autoStart: true,
+  })
 
   useEffect(() => {
-    setInitialTime(Date.now())
-  }, [])
+    updateTimeResultStatement(minutes, hours)
+  }, [updateTimeResultStatement, minutes, hours])
 
   useEffect(() => {
-    pathname !== "/" && setEndTime(Date.now())
+    pathname !== "/" ? pause() : start()
   }, [pathname])
-
-  useEffect(() => {
-    let interval: any = null
-    if (timerIsActive) {
-      const date = startOfSecond(new Date())
-      interval = setInterval(() => {
-        setTime(format(date, "hh:mm:ss"))
-      }, 1000)
-    } else if (token === null) {
-      clearInterval(interval)
-    }
-    updateTimeResultStatement(initialTime, endTime)
-
-    return () => clearInterval(interval)
-  }, [
-    time,
-    timerIsActive,
-    token,
-    updateTimeResultStatement,
-    initialTime,
-    endTime,
-  ])
 
   return (
     <div className={classes.timer}>
       <Timer />
       <div className={classes.timeFormat}>
-        <span>{time} </span>
+        <span>{hours < 10 ? "0" + hours : hours}:</span>
+        <span>{minutes < 10 ? "0" + minutes : minutes}:</span>
+        <span>{seconds < 10 ? "0" + seconds : seconds}</span>
       </div>
     </div>
   )
