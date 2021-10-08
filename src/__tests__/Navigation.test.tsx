@@ -2,10 +2,13 @@ import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom/extend-expect"
 import { BrowserRouter, Router } from "react-router-dom"
 import "@testing-library/jest-dom/extend-expect"
-import { createMemoryHistory } from "history"
 import Navigation from "../components/Nav/Navigation"
 import { AuthContext } from "../store/auth-context"
+import userEvent from "@testing-library/user-event"
 
+jest.mock("../components/TimeTracker", () => () => (
+  <div data-testid="timetracker" />
+))
 
 type contextProps = {
   enteredEmail: string
@@ -112,6 +115,24 @@ describe("Navigation", () => {
     )
     const listElements = await screen.findAllByRole('listitem')
     expect(listElements).toHaveLength(1)
+
+  })
+  it("shows the timer if user clicks on button Track time", async() => {
+    contextItems = {
+      ...contextItems,
+      token: 'some text'
+    }
+    render(
+      <AuthContext.Provider value={contextItems}>
+        <BrowserRouter>
+          <Navigation />
+        </BrowserRouter>
+      </AuthContext.Provider>
+    )
+    const timerBtn = screen.getByRole('button', {name: 'track time'})
+   userEvent.click(timerBtn)
+   const timerComponent = await screen.findByTestId('timetracker')
+   expect(timerComponent).toBeVisible()
 
   })
 })

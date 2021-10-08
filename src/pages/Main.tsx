@@ -20,7 +20,6 @@ const Main: React.FC = () => {
     currentLevel,
     numberOfGuessedWords,
     fetchUserData,
-    launchTimer,
     resetUserData,
   } = regExContext
 
