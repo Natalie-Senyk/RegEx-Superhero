@@ -1,4 +1,3 @@
-import { useLocation } from "react-router-dom"
 import { RegexContext } from "../store/regex-context"
 import { useContext, useEffect, useState } from "react"
 import classes from "./Progress.module.css"
@@ -22,11 +21,9 @@ const Progress = () => {
   >([])
   const [spinner, setSpinner] = useState<boolean>(true)
   const regExContext = useContext(RegexContext)
-  const { endTimer, fetchUserProgress, fetchUserData, userProgress, numberOfGuessedWords } =
+  const { fetchUserProgress, fetchUserData, userProgress, numberOfGuessedWords } =
     regExContext
 
-  const location = useLocation()
-  const { pathname } = location
 
   useEffect(() => {
     fetchUserData()
@@ -34,9 +31,6 @@ const Progress = () => {
      setTimeout(() => {setSpinner(false)}, 1000)
   }, [fetchUserProgress, fetchUserData, numberOfGuessedWords])
 
-  useEffect(() => {
-    pathname === "/progress" && endTimer()
-  }, [endTimer, pathname])
 
   const onSearchHandler = (
     filteredResult: userProgress[] | undefined,

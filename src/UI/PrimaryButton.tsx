@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import Icon from "@material-ui/core/Icon"
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom"
+import Timer from "@material-ui/icons/Timer"
 import { RegexContext } from "../store/regex-context"
 
 const useStyles = makeStyles((theme) => ({
@@ -12,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
   custom: {
     margin: theme.spacing(7),
-    marginTop: '40px',
-    marginBottom: '5px',
+    marginTop: "40px",
+    marginBottom: "5px",
     width: "20ch",
   },
 }))
@@ -29,12 +30,13 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
   const regExContext = useContext(RegexContext)
   const { numberOfGuessedWords } = regExContext
 
-
   const endIcon =
     props.name === "submit" ? (
       <Icon>send</Icon>
     ) : props.name === "skip" ? (
       <DoubleArrowIcon>skip</DoubleArrowIcon>
+    ) : props.name === "track time" ? (
+      <Timer>track time</Timer>
     ) : (
       <MeetingRoomIcon>Sign In</MeetingRoomIcon>
     )
@@ -42,7 +44,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
   return (
     <Button
       variant="contained"
-      type={props.name === "skip" ? "button" : 'submit'}
+      type={props.name === "skip" ? "button" : "submit"}
       color="primary"
       className={!props.customStyle ? classes.button : classes.custom}
       endIcon={endIcon}

@@ -20,6 +20,7 @@ const Main: React.FC = () => {
     currentLevel,
     numberOfGuessedWords,
     fetchUserData,
+    launchTimer,
     resetUserData,
   } = regExContext
 
@@ -28,7 +29,7 @@ const Main: React.FC = () => {
   }, [fetchUserData, modalIsShown])
 
   useEffect(() => {
-    numberOfGuessedWords > 1 && setModalIsShown(true)
+    numberOfGuessedWords > 29 && setModalIsShown(true)
   }, [numberOfGuessedWords])
 
   useEffect(() => {

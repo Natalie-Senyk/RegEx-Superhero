@@ -1,5 +1,5 @@
 .header {
-    height: 3.5rem;
+    height: 3.6rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -9,6 +9,16 @@
     color: #1a3d2f;
     font-weight: 600;
     font-size: 1.5rem;
+  }
+
+  .headerBtn{
+    background-color:#d7d8e0;
+    color: #303F9F;
+    border-radius: 1px solid #303F9F;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    font: inherit;
   }
   
   .header nav {

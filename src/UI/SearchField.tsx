@@ -6,6 +6,7 @@ import Divider from "@material-ui/core/Divider"
 import IconButton from "@material-ui/core/IconButton"
 import SearchIcon from "@material-ui/icons/Search"
 import debounce from "lodash.debounce"
+import { PROGRESS_URL } from "../urls.config"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,9 +50,7 @@ const SearchField: React.FC<searchFieldProps> = (props) => {
 
   const updateQuery = async () => {
     try {
-      const response = await fetch(
-        "https://regex-superhero-default-rtdb.firebaseio.com/progress.json"
-      )
+      const response = await fetch(PROGRESS_URL)
       const data = await response.json()
       if (data === null) {
         return
