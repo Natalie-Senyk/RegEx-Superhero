@@ -14,8 +14,7 @@ type RegexContextObj = {
   skipWord: () => void
   timerIsActive: boolean
   launchTimer: () => void
-  pauseTimer: () => void
-  timeResult: number | string
+  timeResult: timeResultProps
   updateTimeResultStatement: (minutes: number, hours: number) => void
   validateResult: (input: string) => void
   fetchUserData: () => void
@@ -23,6 +22,11 @@ type RegexContextObj = {
   resetUserData: () => void
   userProgress: userProgress[] | undefined
   updateFetchRequests: () => void
+}
+
+type timeResultProps = {
+  minutes: number,
+  hours: number
 }
 
 type userProgress = {
@@ -42,8 +46,7 @@ export const RegexContext = React.createContext<RegexContextObj>({
   skipWord: () => {},
   timerIsActive: false,
   launchTimer: () => {},
-  pauseTimer: () => {},
-  timeResult: 0,
+  timeResult: {minutes: 0, hours: 0},
   updateTimeResultStatement: () => {},
   validateResult: () => {},
   fetchUserData: () => {},
@@ -64,7 +67,7 @@ const RegexContextProvider: React.FC = (props) => {
   )
   const [guessedWords, setGuessedWords] = useState<number>(0)
   const [timerIsActive, setTimerIsActive] = useState(false)
-  const [timeResult, setTimeResult] = useState<number | string>(0)
+  const [timeResult, setTimeResult] = useState<timeResultProps>({minutes: 0, hours: 0})
   const [userProgress, setUserProgress] = useState<userProgress[]>([
     {
       guessedWords: [],
@@ -197,36 +200,16 @@ const RegexContextProvider: React.FC = (props) => {
     setEnteredInput(input)
   }
 
-  const launchTimer = useCallback(() => {
+  const launchTimer = () => {
     setTimerIsActive(true)
-  }, [])
+  }
 
-  const pauseTimer = useCallback(() => {
-    setTimerIsActive(false)
-  }, [])
-
-  // const updateTimeResultStatement = useCallback(
-  //   (initialTime: number, endTime: number) => {
-  //     setTimeResult(endTime - initialTime)
-  //   },
-  //   []
-  // )
 
   const updateTimeResultStatement = useCallback((
     minutes: number,
     hours: number
   ) => {
-    hours === 0 && minutes === 0 && setTimeResult("less than a minute!")
-    hours === 0 && minutes > 1 && setTimeResult(`${minutes} minutes`)
-    hours === 0 && minutes === 1 && setTimeResult(`${minutes} minute`)
-
-    hours > 1 && minutes === 0 && setTimeResult(`${hours} hours`)
-    hours > 1 && minutes === 1 && setTimeResult(`${hours} hours and ${minutes} minute`)
-    hours > 1 && minutes > 1 && setTimeResult(`${hours} hours and ${minutes} minutes`)
-
-    hours === 1 && minutes === 0 && setTimeResult(`${hours} hour`)
-    hours === 1 && minutes === 1 && setTimeResult(`${hours} hour and ${minutes} minute`)
-    hours === 1 && minutes > 1 && setTimeResult(`${hours} hour and ${minutes} minutes`)
+setTimeResult({minutes: minutes, hours: hours})
   },[])
 
   const contextValue: RegexContextObj = {
@@ -240,7 +223,6 @@ const RegexContextProvider: React.FC = (props) => {
     skipWord: skipWordHandler,
     timerIsActive: timerIsActive,
     launchTimer: launchTimer,
-    pauseTimer: pauseTimer,
     timeResult: timeResult,
     updateTimeResultStatement: updateTimeResultStatement,
     validateResult: validateResult,

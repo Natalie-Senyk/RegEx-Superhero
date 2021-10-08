@@ -12,6 +12,7 @@ const Navigation: React.FC = () => {
   const regExContext = useContext(RegexContext)
   const [showTimer, setShowTimer] = useState<boolean>(false)
   const { token } = authCtx
+  const {launchTimer} = regExContext
 
   const logoutHandler = () => {
     authCtx.logout()
@@ -20,6 +21,7 @@ const Navigation: React.FC = () => {
 
   const showTrackerHandler = () => {
     setShowTimer(true)
+    launchTimer()
   }
 
   return (

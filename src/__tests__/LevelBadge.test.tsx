@@ -4,6 +4,7 @@ import "@testing-library/jest-dom/extend-expect"
 import LevelBadge from "../components/LevelBadge"
 
 
+
 let contextItems = {
   currentLevel: 1,
   wordIndex: 0,
@@ -15,8 +16,7 @@ let contextItems = {
   skipWord: () => {},
   timerIsActive: false,
   launchTimer: () => {},
-  pauseTimer: () => {},
-  timeResult: 0,
+  timeResult: {minutes: 0, hours: 0},
   updateTimeResultStatement: () => {},
   validateResult: () => {},
   fetchUserData: () => {},
@@ -72,7 +72,7 @@ describe("Level Badge and user overall progress", () => {
   it("shows the text 'You did it less than a minute' if the converted time result is === 0 minutes ", async() => {
     contextItems = {
         ...contextItems,
-        timeResult: 'less than a minute!'
+        timeResult: {minutes: 0, hours: 0}
       }
       render(
         <RegexContext.Provider value={contextItems}>
@@ -86,7 +86,7 @@ describe("Level Badge and user overall progress", () => {
   it("it shows the text 'Great job! You did it in ...' if the converted time result is === more than 1 min", async() => {
     contextItems = {
         ...contextItems,
-        timeResult: '3 minutes'
+        timeResult: {minutes: 3, hours: 0}
       }
       render(
         <RegexContext.Provider value={contextItems}>
