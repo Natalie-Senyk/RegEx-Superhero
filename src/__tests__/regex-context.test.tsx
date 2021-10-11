@@ -23,6 +23,8 @@ let contextItems = {
   resetUserData: () => {},
   userProgress: [],
   updateFetchRequests: () => {},
+  updateCardLimit: () => {},
+  cardLimit: 6
 }
 
 describe("Context default values render correctly", () => {

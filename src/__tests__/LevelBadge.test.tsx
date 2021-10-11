@@ -24,6 +24,8 @@ let contextItems = {
   resetUserData: () => {},
   userProgress: [],
   updateFetchRequests: () => {},
+  updateCardLimit: () => {},
+  cardLimit: 6
 }
 
 describe("Level Badge and user overall progress", () => {
