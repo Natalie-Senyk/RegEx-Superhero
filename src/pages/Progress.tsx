@@ -7,6 +7,7 @@ import WaveImg from "../assets/wave.png"
 import LevelBadge from "../components/LevelBadge"
 import SearchField from "../UI/SearchField"
 import PrimarySpinner from "../UI/Spinner"
+import PrimaryButton from "../UI/PrimaryButton"
 
 type userProgress = {
   guessedWords: string[]
@@ -21,16 +22,20 @@ const Progress = () => {
   >([])
   const [spinner, setSpinner] = useState<boolean>(true)
   const regExContext = useContext(RegexContext)
-  const { fetchUserProgress, fetchUserData, userProgress, numberOfGuessedWords } =
-    regExContext
-
+  const {
+    fetchUserProgress,
+    fetchUserData,
+    userProgress,
+    numberOfGuessedWords,
+  } = regExContext
 
   useEffect(() => {
     fetchUserData()
     numberOfGuessedWords > 0 && fetchUserProgress()
-     setTimeout(() => {setSpinner(false)}, 1000)
+    setTimeout(() => {
+      setSpinner(false)
+    }, 1000)
   }, [fetchUserProgress, fetchUserData, numberOfGuessedWords])
-
 
   const onSearchHandler = (
     filteredResult: userProgress[] | undefined,
@@ -64,34 +69,37 @@ const Progress = () => {
   if (spinner) {
     return (
       <section>
-        <PrimarySpinner /> <h3 className={classes.loadingText}>Loading your progress data...</h3>
+        <PrimarySpinner />{" "}
+        <h3 className={classes.loadingText}>Loading your progress data...</h3>
       </section>
     )
   }
 
   return (
     <>
-      {numberOfGuessedWords > 1 && <LevelBadge />}
-      {numberOfGuessedWords > 1 && <SearchField onSearch={onSearchHandler} />}
-      <div
-        data-testid="progress"
-        className={numberOfGuessedWords > 1 ? classes.progress : ""}
-      >
-        {numberOfGuessedWords > 1 ? (
-          progressCards
-        ) : (
-          <div data-testid="no-progress" className={classes.noProgress}>
-            <h3>
-              No guessed words yet. <Link to="/">Go back </Link>to home page
-            </h3>
-            <img
-              src={WaveImg}
-              alt="Wave"
-              className="animate__animated animate__bounce animate__delay-1s"
-            />
+      {numberOfGuessedWords > 1 ? (
+        <div>
+          <LevelBadge />
+          <SearchField onSearch={onSearchHandler} />
+          <div data-testid="progress" className={classes.progress}>
+            {progressCards}
           </div>
-        )}
-      </div>
+          <div className={classes.loadMoreBtn}>
+          <PrimaryButton name="load more" />
+          </div>
+        </div>
+      ) : (
+        <div data-testid="no-progress" className={classes.noProgress}>
+          <h3>
+            No guessed words yet. <Link to="/">Go back </Link>to home page
+          </h3>
+          <img
+            src={WaveImg}
+            alt="Wave"
+            className="animate__animated animate__bounce animate__delay-1s"
+          />
+        </div>
+      )}
     </>
   )
 }
