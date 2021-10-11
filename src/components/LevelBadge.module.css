@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gluten:wght@300&display=swap');
 
 .level{
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     text-align: center;
     font-family: 'Gluten', cursive;
 }
@@ -22,4 +22,21 @@
     border-radius: 50%;
     text-align: center;
     border: 20px solid #303F9F;
+}
+
+@media (max-width: 768px) {
+    .level {
+        font-size: 1.8rem;
+    }
+    .time{
+        font-family: 'Gluten';
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .level {
+        font-size: 1.3rem;
+    }
+
 }

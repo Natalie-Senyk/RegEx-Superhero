@@ -5,6 +5,7 @@ import Icon from "@material-ui/core/Icon"
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow"
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom"
 import Timer from "@material-ui/icons/Timer"
+import CachedIcon from '@material-ui/icons/Cached';
 import { RegexContext } from "../store/regex-context"
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +38,8 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
       <DoubleArrowIcon>skip</DoubleArrowIcon>
     ) : props.name === "track time" ? (
       <Timer>track time</Timer>
+    ) : props.name === "load more" ? (
+      <CachedIcon>load more</CachedIcon>
     ) : (
       <MeetingRoomIcon>Sign In</MeetingRoomIcon>
     )
