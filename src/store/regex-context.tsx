@@ -212,10 +212,8 @@ const RegexContextProvider: React.FC = (props) => {
 
   function updateCardLimit() {
     setCardLimit((prev) => prev + 6)
-    if (guessedWords < cardLimit) {
-      return
-    }
     fetchUserProgress()
+ 
   }
 
   const launchTimer = () => {
