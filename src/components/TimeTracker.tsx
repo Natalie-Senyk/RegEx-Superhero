@@ -5,7 +5,7 @@ import classes from "./TimeTracker.module.css"
 import { useLocation } from "react-router-dom"
 import { useStopwatch } from "react-timer-hook"
 
-const TimeTracker = () => {
+const TimeTracker: React.FC = () => {
   const location = useLocation()
   const { pathname } = location
 

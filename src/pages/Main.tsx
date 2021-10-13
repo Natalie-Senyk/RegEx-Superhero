@@ -22,6 +22,7 @@ const Main: React.FC = () => {
     fetchUserData,
     resetUserData,
   } = regExContext
+  const [word1, word2, word3] = currentWord
 
   useEffect(() => {
     fetchUserData()
@@ -46,7 +47,8 @@ const Main: React.FC = () => {
   }, [currentLevel, numberOfGuessedWords])
 
   const userInputHighlightHandler = useCallback((userInput: string) => {
-    setsearchHighlightedInput(userInput)
+   setsearchHighlightedInput(userInput)
+    
   }, [])
 
   const hideModalHandler = () => {
@@ -57,6 +59,9 @@ const Main: React.FC = () => {
     resetUserData()
     setModalIsShown(false)
   }
+  console.log(searchHighlightedInput)
+
+
 
   return (
     <>
@@ -92,7 +97,7 @@ const Main: React.FC = () => {
               key={word}
               className={classes.wordToGuess}
               data-testid="current-word"
-              searchWords={[searchHighlightedInput]!}
+              searchWords={[searchHighlightedInput]}
               autoEscape={true}
               textToHighlight={word}
             />
@@ -117,7 +122,11 @@ const Main: React.FC = () => {
         <ModalWinResult onClose={hideModalHandler}>
           <div className={classes.modalContent}>
             <h1>Congrats, you won!</h1>
-            <img className={classes.winnerIcon} src={Winner} alt="winner badge" />
+            <img
+              className={classes.winnerIcon}
+              src={Winner}
+              alt="winner badge"
+            />
             <div className={classes.actions}>
               <button onClick={hideModalHandler}>Close</button>
               <button onClick={resetGameHandler}>Try again</button>
@@ -130,3 +139,5 @@ const Main: React.FC = () => {
 }
 
 export default Main
+
+// searchWords={[searchHighlightedInput]!}
