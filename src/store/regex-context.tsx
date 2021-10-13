@@ -22,10 +22,12 @@ type RegexContextObj = {
   resetUserData: () => void
   userProgress: userProgress[] | undefined
   updateFetchRequests: () => void
+  updateCardLimit: () => void
+  cardLimit: number
 }
 
 type timeResultProps = {
-  minutes: number,
+  minutes: number
   hours: number
 }
 
@@ -46,7 +48,7 @@ export const RegexContext = React.createContext<RegexContextObj>({
   skipWord: () => {},
   timerIsActive: false,
   launchTimer: () => {},
-  timeResult: {minutes: 0, hours: 0},
+  timeResult: { minutes: 0, hours: 0 },
   updateTimeResultStatement: () => {},
   validateResult: () => {},
   fetchUserData: () => {},
@@ -54,6 +56,8 @@ export const RegexContext = React.createContext<RegexContextObj>({
   resetUserData: () => {},
   userProgress: [],
   updateFetchRequests: () => {},
+  updateCardLimit: () => {},
+  cardLimit: 6,
 })
 
 const RegexContextProvider: React.FC = (props) => {
@@ -67,7 +71,10 @@ const RegexContextProvider: React.FC = (props) => {
   )
   const [guessedWords, setGuessedWords] = useState<number>(0)
   const [timerIsActive, setTimerIsActive] = useState(false)
-  const [timeResult, setTimeResult] = useState<timeResultProps>({minutes: 0, hours: 0})
+  const [timeResult, setTimeResult] = useState<timeResultProps>({
+    minutes: 0,
+    hours: 0,
+  })
   const [userProgress, setUserProgress] = useState<userProgress[]>([
     {
       guessedWords: [],
@@ -75,6 +82,7 @@ const RegexContextProvider: React.FC = (props) => {
       guessedTime: "",
     },
   ])
+  const [cardLimit, setCardLimit] = useState<number>(6)
 
   const fetchUserData = useCallback(async () => {
     const response = await fetch(USER_DATA_URL)
@@ -119,7 +127,9 @@ const RegexContextProvider: React.FC = (props) => {
 
   const fetchUserProgress = useCallback(async () => {
     try {
-      const response = await fetch(PROGRESS_URL)
+      const response = await fetch(
+        `${PROGRESS_URL}?orderBy="$key"&limitToFirst=${cardLimit}`
+      )
       if (!response.ok) {
         throw new Error("Something went wrong")
       }
@@ -139,7 +149,7 @@ const RegexContextProvider: React.FC = (props) => {
     } catch (error: any) {
       throw new Error(error.message)
     }
-  }, [])
+  }, [cardLimit])
 
   const resetUserData = async () => {
     await fetch(USER_DATA_URL, {
@@ -200,17 +210,22 @@ const RegexContextProvider: React.FC = (props) => {
     setEnteredInput(input)
   }
 
+  function updateCardLimit() {
+    setCardLimit((prev) => prev + 6)
+    fetchUserProgress()
+ 
+  }
+
   const launchTimer = () => {
     setTimerIsActive(true)
   }
 
-
-  const updateTimeResultStatement = useCallback((
-    minutes: number,
-    hours: number
-  ) => {
-setTimeResult({minutes: minutes, hours: hours})
-  },[])
+  const updateTimeResultStatement = useCallback(
+    (minutes: number, hours: number) => {
+      setTimeResult({ minutes: minutes, hours: hours })
+    },
+    []
+  )
 
   const contextValue: RegexContextObj = {
     currentLevel: curLevel,
@@ -231,6 +246,8 @@ setTimeResult({minutes: minutes, hours: hours})
     resetUserData: resetUserData,
     userProgress: userProgress,
     updateFetchRequests: updateFetchRequests,
+    updateCardLimit: updateCardLimit,
+    cardLimit: cardLimit,
   }
 
   return (

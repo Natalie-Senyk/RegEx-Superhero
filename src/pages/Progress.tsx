@@ -27,7 +27,11 @@ const Progress = () => {
     fetchUserData,
     userProgress,
     numberOfGuessedWords,
+    updateCardLimit,
+    cardLimit
   } = regExContext
+
+  const disabledBtn: boolean = numberOfGuessedWords < cardLimit
 
   useEffect(() => {
     fetchUserData()
@@ -37,10 +41,7 @@ const Progress = () => {
     }, 1000)
   }, [fetchUserProgress, fetchUserData, numberOfGuessedWords])
 
-  const onSearchHandler = (
-    filteredResult: userProgress[] | undefined,
-    userQuery: string
-  ) => {
+  const onSearchHandler = (filteredResult: userProgress[] | undefined) => {
     filteredResult!.length > 0
       ? setSearchEnabled(true)
       : setSearchEnabled(false)
@@ -69,7 +70,7 @@ const Progress = () => {
   if (spinner) {
     return (
       <section>
-        <PrimarySpinner />{" "}
+        <PrimarySpinner />
         <h3 className={classes.loadingText}>Loading your progress data...</h3>
       </section>
     )
@@ -85,7 +86,7 @@ const Progress = () => {
             {progressCards}
           </div>
           <div className={classes.loadMoreBtn}>
-          <PrimaryButton name="load more" />
+            <PrimaryButton disabled={disabledBtn} onClick={updateCardLimit} name="load more" />
           </div>
         </div>
       ) : (

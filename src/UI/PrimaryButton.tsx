@@ -24,12 +24,13 @@ type ButtonProps = {
   name: string
   customStyle?: boolean
   onClick?: () => void
+  disabled?: boolean
 }
 
 const PrimaryButton: React.FC<ButtonProps> = (props) => {
   const classes = useStyles()
   const regExContext = useContext(RegexContext)
-  const { numberOfGuessedWords } = regExContext
+  const { numberOfGuessedWords} = regExContext
 
   const endIcon =
     props.name === "submit" ? (
@@ -52,7 +53,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
       className={!props.customStyle ? classes.button : classes.custom}
       endIcon={endIcon}
       onClick={props.onClick}
-      disabled={numberOfGuessedWords === 30}
+      disabled={numberOfGuessedWords === 30 || props.disabled}
     >
       {props.name}
     </Button>

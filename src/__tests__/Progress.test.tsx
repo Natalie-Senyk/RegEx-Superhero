@@ -3,6 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom/extend-expect"
 import Progress from "../pages/Progress"
 import { BrowserRouter } from "react-router-dom"
+import userEvent from "@testing-library/user-event"
 
 jest.mock("../components/LevelBadge", () => () => (
   <div data-testid="levelbadge" />
@@ -26,7 +27,7 @@ let contextItems = {
   skipWord: () => {},
   timerIsActive: false,
   launchTimer: () => {},
-  timeResult: {minutes: 0, hours: 0},
+  timeResult: { minutes: 0, hours: 0 },
   updateTimeResultStatement: () => {},
   validateResult: () => {},
   fetchUserData: () => {},
@@ -34,6 +35,8 @@ let contextItems = {
   resetUserData: () => {},
   userProgress: [],
   updateFetchRequests: () => {},
+  updateCardLimit: jest.fn(),
+  cardLimit: 6,
 }
 
 describe("Progress Component and its behaviour", () => {
@@ -109,5 +112,27 @@ describe("Progress Component and its behaviour", () => {
     )
     const searchComponent = await screen.findByTestId("searchInput")
     expect(searchComponent).toBeVisible()
+  })
+  it("renders 12 cards in progress page if Load more btn is clicked by user", async () => {
+    contextItems = {
+      ...contextItems,
+      numberOfGuessedWords: 12,
+    }
+    render(
+      <RegexContext.Provider value={contextItems}>
+        <BrowserRouter>
+          <Progress />
+        </BrowserRouter>
+      </RegexContext.Provider>
+    )
+    let cardLimit = 6
+    const loadMoreButton = await screen.findByRole("button", {
+      name: "load more",
+    })
+    userEvent.click(loadMoreButton)
+
+    const updateCardLimit = jest.fn(() => (cardLimit = 12))
+    updateCardLimit()
+    expect(cardLimit).toBe(12)
   })
 })

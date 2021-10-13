@@ -16,7 +16,7 @@ const ProgressItem: React.FC<progressItemProps> = (props) => {
 
     return (
       <Card>
-        <span className={classes.regexName}>
+        <span className={classes.regexName} data-testid="regex">
         {props.regex}
         </span>
         <h3
@@ -24,7 +24,7 @@ const ProgressItem: React.FC<progressItemProps> = (props) => {
         >
           {cardWord}
         </h3>
-        <h5 data-testid="regex" className={classes.time}>
+        <h5 className={classes.time}>
         Time: {props.time}
         </h5>
       </Card>
