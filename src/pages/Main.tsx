@@ -22,7 +22,9 @@ const Main: React.FC = () => {
     fetchUserData,
     resetUserData,
   } = regExContext
-  const [word1, word2, word3] = currentWord
+
+
+const searchWords = searchHighlightedInput.split(/\s/).filter(word => word)
 
   useEffect(() => {
     fetchUserData()
@@ -59,7 +61,6 @@ const Main: React.FC = () => {
     resetUserData()
     setModalIsShown(false)
   }
-  console.log(searchHighlightedInput)
 
 
 
@@ -93,11 +94,14 @@ const Main: React.FC = () => {
           </p>
           {currentWord.map((word) => (
             <Highlighter
-              highlightClassName="YourHighlightClass"
+            activeClassName={classes.active}
+              highlightClassName={classes.highlight}
               key={word}
               className={classes.wordToGuess}
               data-testid="current-word"
-              searchWords={[searchHighlightedInput]}
+              searchWords={searchWords}
+              activeIndex={-1}
+              caseSensitive={false}
               autoEscape={true}
               textToHighlight={word}
             />
@@ -140,4 +144,3 @@ const Main: React.FC = () => {
 
 export default Main
 
-// searchWords={[searchHighlightedInput]!}
