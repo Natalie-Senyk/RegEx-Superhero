@@ -22,7 +22,6 @@ const Main: React.FC = () => {
     fetchUserData,
     resetUserData,
   } = regExContext
-  const [word1, word2, word3] = currentWord
 
   useEffect(() => {
     fetchUserData()
@@ -59,7 +58,6 @@ const Main: React.FC = () => {
     resetUserData()
     setModalIsShown(false)
   }
-  console.log(searchHighlightedInput)
 
 
 

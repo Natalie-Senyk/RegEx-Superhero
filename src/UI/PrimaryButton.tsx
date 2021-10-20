@@ -53,7 +53,7 @@ const PrimaryButton: React.FC<ButtonProps> = (props) => {
       className={!props.customStyle ? classes.button : classes.custom}
       endIcon={endIcon}
       onClick={props.onClick}
-      disabled={numberOfGuessedWords === 30 || props.disabled}
+      disabled={numberOfGuessedWords === 30}
     >
       {props.name}
     </Button>

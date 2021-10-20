@@ -1,18 +1,19 @@
 import { RegexContext } from "../store/regex-context"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import classes from "./Progress.module.css"
 import ProgressItem from "../components/ProgressItem"
 import { Link } from "react-router-dom"
 import WaveImg from "../assets/wave.png"
 import LevelBadge from "../components/LevelBadge"
-import SearchField from "../UI/SearchField"
 import PrimarySpinner from "../UI/Spinner"
 import PrimaryButton from "../UI/PrimaryButton"
+import LevelSelector from "../UI/LevelSelector"
 
 type userProgress = {
   guessedWords: string[]
   guessedTime: string
   guessedRegEx: string
+  level: number
 }
 
 const Progress = () => {
@@ -31,7 +32,7 @@ const Progress = () => {
     cardLimit
   } = regExContext
 
-  const disabledBtn: boolean = numberOfGuessedWords < cardLimit
+  const loadMore: boolean = numberOfGuessedWords > cardLimit
 
   useEffect(() => {
     fetchUserData()
@@ -41,12 +42,12 @@ const Progress = () => {
     }, 1000)
   }, [fetchUserProgress, fetchUserData, numberOfGuessedWords])
 
-  const onSearchHandler = (filteredResult: userProgress[] | undefined) => {
+  const onSearchHandler = useCallback((filteredResult: userProgress[] | undefined) => {
     filteredResult!.length > 0
       ? setSearchEnabled(true)
       : setSearchEnabled(false)
     filteredResult!.length > 0 && setFilteredCards(filteredResult)
-  }
+  }, [])
 
   const progressCards =
     numberOfGuessedWords > 1 && !searchEnabled
@@ -81,12 +82,12 @@ const Progress = () => {
       {numberOfGuessedWords > 1 ? (
         <div>
           <LevelBadge />
-          <SearchField onSearch={onSearchHandler} />
+          <LevelSelector onSearch={onSearchHandler} />
           <div data-testid="progress" className={classes.progress}>
             {progressCards}
           </div>
           <div className={classes.loadMoreBtn}>
-            <PrimaryButton disabled={disabledBtn} onClick={updateCardLimit} name="load more" />
+            {loadMore && progressCards.length > 5 && <PrimaryButton onClick={updateCardLimit} name="load more" /> }
           </div>
         </div>
       ) : (
