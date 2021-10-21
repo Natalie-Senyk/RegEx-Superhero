@@ -16,7 +16,7 @@ type RegexContextObj = {
   launchTimer: () => void
   timeResult: timeResultProps
   updateTimeResultStatement: (minutes: number, hours: number) => void
-  validateResult: (input: string) => void
+  validateResult: () => void
   fetchUserData: () => void
   fetchUserProgress: () => void
   resetUserData: () => void
@@ -35,6 +35,7 @@ type userProgress = {
   guessedWords: string[]
   guessedTime: string
   guessedRegEx: string
+  level: number
 }
 
 export const RegexContext = React.createContext<RegexContextObj>({
@@ -80,6 +81,7 @@ const RegexContextProvider: React.FC = (props) => {
       guessedWords: [],
       guessedRegEx: "",
       guessedTime: "",
+      level: 1
     },
   ])
   const [cardLimit, setCardLimit] = useState<number>(6)
@@ -121,6 +123,7 @@ const RegexContextProvider: React.FC = (props) => {
         guessedWords: currentWord,
         guessedRegEx: enteredInput,
         guessedTime: currentTime,
+        level: validateLevel(guessedWords, setCurLevel)
       }),
     })
   }
@@ -143,6 +146,7 @@ const RegexContextProvider: React.FC = (props) => {
           guessedWords: data[key].guessedWords,
           guessedTime: data[key].guessedTime,
           guessedRegEx: data[key].guessedRegEx,
+          level: data[key].level
         })
       }
       setUserProgress(userProgressTransformed)
@@ -193,7 +197,7 @@ const RegexContextProvider: React.FC = (props) => {
     setCurrentTime(new Date().toLocaleString())
   }
 
-  function validateResult(enteredInput: string) {
+  function validateResult() {
     updateGuessedTime()
     updateWordIndex()
     updateCurrentWord()

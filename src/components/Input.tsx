@@ -68,7 +68,7 @@ const Input: React.FC<userInputProps> = (props) => {
     }
 
     if (result.length) {
-      regExContext.validateResult(enteredInput)
+      regExContext.validateResult()
       regExContext.updateFetchRequests()
       setTimeEvent(setShowConfetti)
     } else {

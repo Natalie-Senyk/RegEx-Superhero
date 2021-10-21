@@ -32,6 +32,11 @@
         font-family: 'Gluten';
         font-size: 1.2rem;
     }
+    .badge img{
+        width: 100px;
+        height: 100px;
+        border: 15px solid #303F9F;
+    }
 }
 
 @media (max-width: 576px) {

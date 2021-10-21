@@ -4,15 +4,17 @@ export function validateLevel(
   guessedWords: number,
   updateLevelFunc: (level: number) => void
 ) {
-  guessedWords < 3 ? updateLevelFunc(1) : 
-  guessedWords < 6 ? updateLevelFunc(2) :
-  guessedWords < 10 ? updateLevelFunc(3) :
-  guessedWords < 14 ? updateLevelFunc(4) :
-  guessedWords < 18 ? updateLevelFunc(5) :
-  guessedWords < 22 ? updateLevelFunc(6) :
-  guessedWords < 26 ? updateLevelFunc(7) :
-  guessedWords < 30 ? updateLevelFunc(8) :
-  guessedWords < 34 ? updateLevelFunc(9) :
-  guessedWords > 33 && updateLevelFunc(10)
+  let level: number = 1
+  guessedWords < 3 ? updateLevelFunc(level = 1) : 
+  guessedWords < 6 ? updateLevelFunc(level = 2) :
+  guessedWords < 10 ? updateLevelFunc(level = 3) :
+  guessedWords < 14 ? updateLevelFunc(level = 4) :
+  guessedWords < 18 ? updateLevelFunc(level = 5) :
+  guessedWords < 22 ? updateLevelFunc(level = 6) :
+  guessedWords < 26 ? updateLevelFunc(level = 7) :
+  guessedWords < 30 ? updateLevelFunc(level = 8) :
+  guessedWords < 34 ? updateLevelFunc(level = 9) :
+  guessedWords > 33 && updateLevelFunc(level = 10)
+  return level
 
 }

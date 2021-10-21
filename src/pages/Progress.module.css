@@ -1,8 +1,7 @@
 .progress{
     display: grid;
-    row-gap: 28px;
-    column-gap: 8px;
-    /* grid-template-columns: repeat(3, auto); */
+    row-gap: 35px;
+    column-gap: 18px;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 }
 
