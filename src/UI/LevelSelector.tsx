@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import Autocomplete from "@material-ui/lab/Autocomplete"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
@@ -49,8 +49,6 @@ const LevelSelector: React.FC<searchFieldProps> = ({onSearch}) => {
 
 
 
-
-
   const updateQuery = async () => {
     try {
       const response = await fetch(
@@ -76,13 +74,10 @@ const LevelSelector: React.FC<searchFieldProps> = ({onSearch}) => {
   }
 
 
-
   const delayedQuery = useCallback(debounce(updateQuery, 500), [userQuery])
-
 
   useEffect(() => {
     userQuery.length && delayedQuery()
-
 
     return delayedQuery.cancel
   }, [userQuery, delayedQuery])
@@ -90,6 +85,7 @@ const LevelSelector: React.FC<searchFieldProps> = ({onSearch}) => {
   useEffect(() => {
     onSearch(filteredData)
   }, [filteredData, onSearch])
+
 
 
   return (
@@ -110,6 +106,7 @@ const LevelSelector: React.FC<searchFieldProps> = ({onSearch}) => {
         renderInput={(params) => (
           <TextField
             {...params}
+            data-testid="searchInput"
             variant="outlined"
             label="Choose one or multiple levels"
             placeholder="Sort by level"
