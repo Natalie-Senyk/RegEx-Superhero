@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo } from "react"
 import classes from "./ProgressItem.module.css"
 
 import Card from "../UI/Card"
@@ -10,8 +10,6 @@ type progressItemProps = {
 }
 
 const ProgressItem: React.FC<progressItemProps> = (props) => {
- 
-
     const cardWord = props.words.map(word => <div key={word}>{word}</div>)
 
     return (
@@ -31,4 +29,4 @@ const ProgressItem: React.FC<progressItemProps> = (props) => {
     )
   }
 
-export default ProgressItem
+export default React.memo(ProgressItem, () => true)

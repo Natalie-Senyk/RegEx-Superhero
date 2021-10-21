@@ -59,7 +59,6 @@ const Main: React.FC = () => {
     resetUserData()
     setModalIsShown(false)
   }
-  console.log(searchHighlightedInput)
 
 
 
