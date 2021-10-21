@@ -49,7 +49,7 @@ const Progress = () => {
     filteredResult!.length > 0 && setFilteredCards(filteredResult)
   }, [])
 
-  const progressCards =
+  const progressCards = 
     numberOfGuessedWords > 1 && !searchEnabled
       ? userProgress!.map((card, index) => (
           <ProgressItem

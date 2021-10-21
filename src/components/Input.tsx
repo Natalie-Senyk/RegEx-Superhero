@@ -32,7 +32,7 @@ const Input: React.FC<userInputProps> = (props) => {
     wordIndex,
     updateCurrentWord,
     enteredInput,
-    updateEnteredInput
+    updateEnteredInput,
   } = regExContext
   const [word1, word2, word3] = currentWord
 
@@ -41,17 +41,19 @@ const Input: React.FC<userInputProps> = (props) => {
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateEnteredInput(e.target.value)
     props.userInputHighlight(e.target.value)
-
-    
   }
-
-
 
   useEffect(() => {
     updateCurrentWord()
   }, [wordIndex, updateCurrentWord])
 
+  useEffect(() => {
+    let confettiTimer = setTimeout(() => setShowConfetti(false), 3000)
 
+    return () => {
+      clearTimeout(confettiTimer)
+    }
+  }, [showConfetti])
 
   const inputSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault()
@@ -62,8 +64,13 @@ const Input: React.FC<userInputProps> = (props) => {
 
     let result: string[] = []
 
-
-    if ([word1, word2, word3].every(word => word.match(enteredInput) !== null && word.match(enteredInput)![0] === word )) {
+    if (
+      [word1, word2, word3].every(
+        (word) =>
+          word.match(enteredInput) !== null &&
+          word.match(enteredInput)![0] === word
+      )
+    ) {
       result.push(word1, word2, word3)
     }
 
