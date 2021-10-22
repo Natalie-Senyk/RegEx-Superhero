@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React from "react"
 import classes from "./ProgressItem.module.css"
 
 import Card from "../UI/Card"
