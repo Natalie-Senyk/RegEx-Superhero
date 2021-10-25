@@ -46,8 +46,7 @@ const Main: React.FC = () => {
   }, [currentLevel, numberOfGuessedWords])
 
   const userInputHighlightHandler = useCallback((userInput: string) => {
-   setsearchHighlightedInput(userInput)
-    
+    setsearchHighlightedInput(userInput)
   }, [])
 
   const hideModalHandler = () => {
@@ -58,8 +57,6 @@ const Main: React.FC = () => {
     resetUserData()
     setModalIsShown(false)
   }
-
-
 
   return (
     <>
