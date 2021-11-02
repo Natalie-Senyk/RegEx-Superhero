@@ -1,17 +1,20 @@
-import { useContext } from "react"
+import { useContext, lazy, Suspense } from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
 import Layout from "./UI/Layout"
 import Main from "./pages/Main"
 import Logout from "./pages/Logout"
-import Progress from "./pages/Progress"
-
+// import Progress from "./pages/Progress"
 import { AuthContext } from "./store/auth-context"
+import PrimarySpinner from "./UI/Spinner"
+
+const Progress = lazy(() => import('./pages/Progress'))
 
 function App() {
   const authCtx = useContext(AuthContext)
 
   return (
     <Layout>
+      <Suspense fallback={<PrimarySpinner />}>
       <Switch>
         <Route path="/" exact>
           <Main />
@@ -28,6 +31,7 @@ function App() {
           <Redirect to="/" />
         </Route>
       </Switch>
+      </Suspense>
     </Layout>
   )
 }

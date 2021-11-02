@@ -1,5 +1,5 @@
 import { Timer } from "@material-ui/icons"
-import { useContext, useEffect } from "react"
+import {useContext, useEffect } from "react"
 import { RegexContext } from "../store/regex-context"
 import classes from "./TimeTracker.module.css"
 import { useLocation } from "react-router-dom"
@@ -16,6 +16,7 @@ const TimeTracker: React.FC = () => {
     autoStart: true,
   })
 
+
   useEffect(() => {
     updateTimeResultStatement(minutes, hours)
   }, [updateTimeResultStatement, minutes, hours])
@@ -23,6 +24,7 @@ const TimeTracker: React.FC = () => {
   useEffect(() => {
     pathname !== "/" ? pause() : start()
   }, [pathname])
+
 
   return (
     <div className={classes.timer}>

@@ -39,8 +39,8 @@
   margin-right: 0.5rem;
 }
 .main .girl {
-  max-width: 150px;
-  max-height: 355px;
+  max-width: 250px;
+  max-height: 455px;
   animation: girl 2000ms forwards;
 }
 .main .leaf {
